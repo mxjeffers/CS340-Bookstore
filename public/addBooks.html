@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form action="">
+            <label for="booksearch">Search for a book.</label>
+            <input type="text" id="booksearch" />
+            <button type="submit" id="search">Search</button>
+        </form>
+    </div>
+    <div class="container"></div>
+        <form>
+            <div class="form-control">
+                <label for="title">Title</label>
+                <input type="text" id="book_title"/>
+                <br>
+                <label for="author">Author</label>
+                <input type="text" id="authors">  <p>Seperate each author by a comma.</p>
+                <br>
+                <label for="Googleid">Google ID</label>
+                <input type="text"id="google_id"/>
+                <br>
+                <label for="ISBN">ISBN</label>
+                <input type="text" id="ISBN"/>
+                <br>
+                <label for="publisher">publisher</label>
+                <input type="text" id="publisher"/>
+                <br>
+                <label for="published date">published date</label>
+                <input type="text"id="published_date"/>
+                <br>
+                <label for="description">description</label>
+                <input type="text"id="description"/>
+                <br>
+                <label for="page count">page count</label>
+                <input type="text"id="page_count"/>
+                <br>
+                <label for="rating">rating</label>
+                <input type="text"id="rating"/>
+                <br>
+                <label for="price">price</label>
+                <input type="text"id="price"/>
+                <br>
+                <label for="quantity">quantity</label>
+                <input type="text"id="quantity"/>
+                <br>
+                <button type="submit" id="database">Send to Database</button>
+            </form>
+            </div>
+    </div>
+    <script src="addbooks.js"></script>
+</body>
+</html>
