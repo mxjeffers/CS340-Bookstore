@@ -7,7 +7,12 @@ const app = express();
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars')
 
-app.set('port', 3000);
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.set('port', port);
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 app.use(cors());
@@ -23,7 +28,7 @@ app.get('/',(req,res)=>{
         if (error){
             res.send(error)
         }else{
-        res.render('index',{data:data})}
+        res.render('index',{book_data:data})}
     })
 } );
 
