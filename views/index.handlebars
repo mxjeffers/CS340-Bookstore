@@ -1,2 +1,21 @@
-<h2>HELLOWORLD</h2>
-{{data}}
+<h2>BOOKSTORE</h2>
+<!--
+<ul class="books_list">
+    {{#each book_data}}
+    <li><div>{{this.title}} by <br><img src="http://books.google.com/books/content?id={{this.googleId}}&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" alt=""></div></li>
+    {{/each}}
+</ul>
+-->
+<div class="container">
+    
+{{#each book_data}}
+<div class="card" style="width: 18rem;">
+  <img src="http://books.google.com/books/content?id={{this.googleId}}&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" alt="" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{this.title}}</h5>
+    <p class="card-text">{{this.description}}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+{{/each}}
+</div>
