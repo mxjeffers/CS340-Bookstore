@@ -26,7 +26,7 @@ function updateVals(data){
     $("#description").val(data.volumeInfo.description)
     $("#page_count").val(data.volumeInfo.pageCount)
     $("#authors").val(data.volumeInfo.authors)
-    console.log($("#authors").val().split())
+    console.log($("#authors").val().split(","))
 }   
 
 $('#database').on('click', (e)=>{
@@ -41,13 +41,11 @@ $('#database').on('click', (e)=>{
                     rating: $("#rating").val(),
                     price : $("#price").val(),
                     quantityAvailable: $("#quantity").val(),
-                    authors: ($("#authors").val().split())
+                    authors: ($("#authors").val().split(","))
                     }
     console.log(payload)
 
-    
-    
-    //ajax that shit over
+    //ajax data to server
     $.post("/addbook", payload)
     .then(()=>{alert('Book Added')})
     .catch(()=>{alert("Book not added.")})

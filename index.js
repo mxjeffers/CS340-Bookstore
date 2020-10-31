@@ -46,8 +46,6 @@ app.post('/addbook',(req,res)=>{
     data =req.body
     query.addBook(data)
     res.send("Books added")
-    
-
 })
 
 app.listen(app.get('port'), function(){
