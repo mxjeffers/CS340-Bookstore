@@ -5,7 +5,8 @@ const query = require('./utils/query');
 const path = require('path')
 const app = express();
 const bodyParser = require('body-parser');
-const exphbs = require('express-handlebars')
+const exphbs = require('express-handlebars');
+const { error } = require('console');
 
 
 let port = process.env.PORT;
@@ -51,6 +52,42 @@ app.post('/addbook',(req,res)=>{
     data =req.body
     query.addBook(data)
     res.send("Books added")
+})
+
+app.get('/getAllBooks',(req,res)=>{
+    query.selectAllBooks((error,data)=>{
+        if (error){
+            res.send(error)
+        } else{
+            res.send(data)
+        }
+    })
+})
+
+app.get('/authors',(req,res)=>{
+    res.render('authors')
+})
+
+app.get('/authordata',(req,res)=>{
+    query.getAllAuthors((err,data)=>{
+        if (err){
+            res.send(err)
+        } else{
+            res.send(data)
+        }
+    })
+})
+app.get('/BookAuthors',(req,res)=>{
+    res.render('BookAuthors')
+})
+
+app.get('/BookAuthors/data',(req,res)=>{
+    query.getALLBookAuthors((err,data)=>{
+        if (err){res.send(err)
+        }else{
+            res.send(data)
+        }
+    })
 })
 
 app.listen(app.get('port'), function(){

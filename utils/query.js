@@ -32,6 +32,23 @@ const orm ={
                 //console.log(results)
             })
         });
+    },
+    getAllAuthors : function(cb){
+        mysql.pool.query('SELECT * FROM Authors ORDER BY authorId',(err,data)=>{
+            if(err){cb(err,null)};
+            cb(null,data)
+        }) 
+    },
+
+    getALLBookAuthors : function(cb){
+        var BookAuthor = `SELECT Books.bookId, Books.title, Authors.authorID, Authors.authorName
+        FROM Books
+        Join BookAuthors on Books.bookId = BookAuthors.bookId
+        JOIN Authors ON BookAuthors.authorId = Authors.authorId`
+        mysql.pool.query(BookAuthor,(err,data)=>{
+            if(err){cb(err,null)}
+            cb(null,data)
+        })
     }
 }
 
