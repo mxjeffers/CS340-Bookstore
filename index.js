@@ -19,7 +19,7 @@ app.set('view engine', 'handlebars')
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,'public')));
-const getAllQuery ='SELECT * FROM Books';
+
 
 // Youtube video used to setup
 // https://www.youtube.com/watch?v=eyKgivrIDpI&list=PLurIMwd6GdCi3ssXNAcjZ2l5mYaTfYPhf&index=14&ab_channel=EsterlingAccime
@@ -31,22 +31,11 @@ app.get('/',(req,res)=>{
         }else{
         res.render('index',{book_data:data})}
     })
-} );
-
-
-app.get('/addbooks',(req,res)=>{
-    res.sendFile(__dirname + '/public/addbooks.html')
-})
-
-app.get('/books', (req,res)=>{
-    mysql.pool.query(getAllQuery,(err,results)=>{
-        if(err){
-            return res.send(err)
-        } else {
-            return res.json({data:results})
-        }
-    })
 });
+
+app.get('/Books',(req,res)=>{
+    res.render('Books')
+})
 
 app.post('/addbook',(req,res)=>{
     data =req.body
