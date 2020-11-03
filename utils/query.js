@@ -33,6 +33,8 @@ const orm = {
             })
         });
     },
+
+
     getAllAuthors: function (cb) {
         mysql.pool.query('SELECT * FROM Authors ORDER BY authorId', (err, data) => {
             if (err) { cb(err, null) };
@@ -49,9 +51,49 @@ const orm = {
             if (err) { cb(err, null) }
             cb(null, data)
         })
-    }
+    },
 
-    //add queries for add customers, add orders, add addresses.
+    //add queries for customers, orders, addresses.
+    //get all customers, orders, addresses
+    getAllCustomers: function (cb) {
+        mysql.pool.query('SELECT * FROM Customers ORDER BY customerId', (err, data) => {
+            if (err) { cb(err, null) };
+            cb(null, data)
+        })
+    },
+
+    getAllOrders: function (cb) {
+        mysql.pool.query('SELECT * FROM Orders ORDER BY orderId', (err, data) => {
+            if (err) { cb(err, null) };
+            cb(null, data)
+        })
+    },
+
+    getAllAddresses: function (cb) {
+        mysql.pool.query('SELECT * FROM Addresses ORDER BY addressId', (err, data) => {
+            if (err) { cb(err, null) };
+            cb(null, data)
+        })
+    },
+
+    //add new customer
+
+    //add new order
+
+    //add new address
+
+    //update current customer
+
+    //update current order
+
+    //update current address
+
+
+    //delete current customer
+
+    //delete current order
+
+    //delete current address
 
 }
 
