@@ -44,7 +44,7 @@ $('#database').on('click', (e)=>{
                     authors: ($("#authors").val().split(","))
                     }
     console.log(payload)
-
+                    
     //ajax data to server
     $.post("/addbook", payload)
     .then(()=>{alert('Book Added')
@@ -57,35 +57,47 @@ $('#database').on('click', (e)=>{
 function createbookTable(){
     $('#book_table').empty()
     var headings = ["bookID","googleId","title","isbn","publisher","publishedDate",
-                    "description","pageCount","rating","price","quantityAvailable"];
-    
-    var tr = book_table.insertRow(-1);
+                    "description","pageCount","rating","price","quantityAvailable","authors"];
+    var thead = document.createElement('thead')
+    book_table.appendChild(thead)
+    var tr = document.createElement('tr');
     for (var i=0; i < headings.length; i++){
         var th = document.createElement('th')
         th.innerHTML = headings[i];
         tr.appendChild(th);
+        thead.appendChild(tr)
     }
     var booksdata
     $.get("/getAllBooks",(bookdata)=>{
         
         maketable(bookdata)
+        $(document).ready( function () {
+            $('#book_table').DataTable();
+        });
     })
     
 }
 
 function maketable(bookdata){
+    tbody = document.createElement('tbody')
+    book_table.appendChild(tbody)
     $.each(bookdata,(key,val)=>{
-        var tr =book_table.insertRow(-1)
-
+        var tr =document.createElement('tr')
         for(x in val){
             td = document.createElement('td')
             if(x == "description"){
-                td.innerHTML = "Description included."
+                if(val[x] == ""){
+                    td.innerHTML = "NULL"
+                }else{
+                
+                td.innerHTML = "Description included."}
             } else{
-            td.innerHTML=(val[x])}
+                td.innerHTML=(val[x])}
             tr.appendChild(td)
+            
         }
-
+        tbody.appendChild(tr)
     })
 }
 createbookTable()
+
