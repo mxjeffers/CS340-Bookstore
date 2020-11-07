@@ -36,7 +36,6 @@ app.get('/', (req, res) => {
 
 app.get('/Books',(req,res)=>{
     res.render('Books',{title:"Books"})
-
 })
 
 app.post('/addbook', (req, res) => {
@@ -55,7 +54,6 @@ app.get('/getAllBooks', (req, res) => {
     })
 })
 
-
 app.get('/authors',(req,res)=>{
     res.render('authors',{title:"Authors"})
 })
@@ -69,10 +67,8 @@ app.get('/authordata', (req, res) => {
         }
     })
 })
-
 app.get('/BookAuthors',(req,res)=>{
     res.render('BookAuthors',{title:"BookAuthors"})
-
 })
 
 app.get('/BookAuthors/data', (req, res) => {
