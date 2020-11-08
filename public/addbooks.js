@@ -73,7 +73,46 @@ function createbookTable(){
         maketable(bookdata)
         $(document).ready( function () {
             $('#book_table').DataTable();
+            //jquery-tabledit adds delete and edit buttons to table.
+            //Still need to give them functionality.
+            $('#book_table').Tabledit({
+                columns:{
+                    identifier:[0,'bookid'],
+                    editable: [[1,'googleId'],[2,'title'],[3,'isbn'],[4,'publisher'],[5,'publishedDate'],
+                                [6,'description'],[7,'pageCount'],[8,'rating'],[9,'price'],[10,'quantityAvailable'],
+                                [11,'authors']]},
+                    editButton:true,
+                    deleteButton: true,
+                    buttons: {
+                        edit: {
+                            class: 'btn btn-sm btn-primary',
+                            html: 'EDIT',
+                            action: 'edit'
+                        },
+                        delete: {
+                            class: 'btn btn-sm btn-dark',
+                            html: 'DELETE',
+                            action: 'delete'
+                        },
+                        save: {
+                            class: 'btn btn-sm btn-success',
+                            html: 'Save'
+                        },
+                        restore: {
+                            class: 'btn btn-sm btn-warning',
+                            html: 'Restore',
+                            action: 'restore'
+                        },
+                        confirm: {
+                            class: 'btn btn-sm btn-danger',
+                            html: 'Confirm'
+                        }
+                    }
+                }
+                
+            );
         });
+        
     })
     
 }
@@ -81,6 +120,7 @@ function createbookTable(){
 function maketable(bookdata){
     tbody = document.createElement('tbody')
     book_table.appendChild(tbody)
+    console.log(bookdata)
     $.each(bookdata,(key,val)=>{
         var tr =document.createElement('tr')
         for(x in val){
@@ -92,7 +132,10 @@ function maketable(bookdata){
                 
                 td.innerHTML = "Description included."}
             } else{
-                td.innerHTML=(val[x])}
+                if(val[x] == ""|| val[x] == null){
+                    td.innerHTML = "NULL"
+                } else{
+                td.innerHTML=(val[x])}}
             tr.appendChild(td)
             
         }

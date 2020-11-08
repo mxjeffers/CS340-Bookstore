@@ -19,6 +19,7 @@ app.set('view engine', 'handlebars')
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(__dirname + '/public'))
 
 
 // Youtube video used to setup
