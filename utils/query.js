@@ -3,7 +3,7 @@ const mysql = require("./dbcon")
 function blanktoNull(array){
     // This function takes blank values and sets them to undefined, so they are NULL in the database.
     for (i=0; i < array.length; i++)
-    {if (array[i] == ""){
+    {if (array[i] == "" || array[i] == "NULL"){
         array[i] = undefined
     }}}
 
@@ -13,9 +13,9 @@ const orm = {
         Books.description, Books.pageCount, Books.rating, Books.price, Books.quantityAvailable,
         GROUP_CONCAT(Authors.authorName ORDER BY Authors.authorName SEPARATOR ', ') Authors
         FROM Books
-            INNER JOIN BookAuthors
+            LEFT JOIN BookAuthors
                 ON Books.bookId = BookAuthors.bookId
-            INNER JOIN Authors
+            LEFT JOIN Authors
                 ON BookAuthors.authorId = Authors.authorId
         GROUP BY Books.bookId`
 
