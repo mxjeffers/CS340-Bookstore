@@ -94,6 +94,17 @@ app.get('/Orders', (req, res) => {
 app.get('/Addresses', (req, res) => {
     res.render('Addresses')
 })
+// This post handles the edit and delete button on the Books Page
+app.post('/example',(req,res)=>{
+    console.log(req.body)
+    if (req.body.action =='delete'){
+        query.deletebook(req.body)
+        res.send("completed")
+    } else if(req.body.action = 'edit'){
+        query.updatebook(req.body)
+        res.send('completed')
+    }
+})
 
 app.listen(app.get('port'), function () {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');

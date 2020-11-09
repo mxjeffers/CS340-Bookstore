@@ -76,6 +76,25 @@ const orm = {
             cb(null, data)
         })
     },
+    deletebook: function (data,cb){
+        var DeleteBook = `DELETE FROM Books WHERE Books.bookId = (?)`
+        mysql.pool.query(DeleteBook,data.bookid,(err,results)=>{
+            if(err){cb(err,null)}
+            cb(null,results)
+        })
+    },
+    
+    // Updatebook figure out cb functions
+    updatebook: function (data,cb){
+        var updatebook = `UPDATE Books SET googleId=?, title=?, isbn=?, publisher=?, publishedDate=?,
+                            pageCount=?, rating=?, price=?, quantityAvailable=? Where bookId=?`
+        var {bookid, googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable, authors} = data;
+        values =[googleId,title,isbn,publisher,publishedDate,pageCount,rating,price,quantityAvailable,bookid]
+        blanktoNull(values)
+        mysql.pool.query(updatebook,values,(err,results)=>{
+            if(err){console.log(err)}
+        })
+    },
 
     //add queries for customers, orders, addresses.
     //get all customers, orders, addresses
