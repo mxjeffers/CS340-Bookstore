@@ -19,6 +19,7 @@ app.set('view engine', 'handlebars')
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(__dirname + '/public'))
 
 
 // Youtube video used to setup
@@ -36,7 +37,6 @@ app.get('/', (req, res) => {
 
 app.get('/Books',(req,res)=>{
     res.render('Books',{title:"Books"})
-
 })
 
 app.post('/addbook', (req, res) => {
@@ -55,7 +55,6 @@ app.get('/getAllBooks', (req, res) => {
     })
 })
 
-
 app.get('/authors',(req,res)=>{
     res.render('authors',{title:"Authors"})
 })
@@ -69,10 +68,8 @@ app.get('/authordata', (req, res) => {
         }
     })
 })
-
 app.get('/BookAuthors',(req,res)=>{
     res.render('BookAuthors',{title:"BookAuthors"})
-
 })
 
 app.get('/BookAuthors/data', (req, res) => {
@@ -96,6 +93,17 @@ app.get('/Orders', (req, res) => {
 
 app.get('/Addresses', (req, res) => {
     res.render('Addresses')
+})
+// This post handles the edit and delete button on the Books Page
+app.post('/example',(req,res)=>{
+    console.log(req.body)
+    if (req.body.action =='delete'){
+        query.deletebook(req.body)
+        res.send("completed")
+    } else if(req.body.action = 'edit'){
+        query.updatebook(req.body)
+        res.send('completed')
+    }
 })
 
 app.listen(app.get('port'), function () {
