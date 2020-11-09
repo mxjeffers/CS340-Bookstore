@@ -1,11 +1,13 @@
 const mysql = require("./dbcon")
 
-function blanktoNull(array){
+function blanktoNull(array) {
     // This function takes blank values and sets them to undefined, so they are NULL in the database.
-    for (i=0; i < array.length; i++)
-    {if (array[i] == "" || array[i] == "NULL"){
-        array[i] = undefined
-    }}}
+    for (i = 0; i < array.length; i++) {
+        if (array[i] == "" || array[i] == "NULL") {
+            array[i] = undefined
+        }
+    }
+}
 
 const orm = {
     //get and show all books
@@ -78,23 +80,25 @@ const orm = {
             cb(null, data)
         })
     },
-    deletebook: function (data,cb){
+
+    //delete current book
+    deletebook: function (data, cb) {
         var DeleteBook = `DELETE FROM Books WHERE Books.bookId = (?)`
-        mysql.pool.query(DeleteBook,data.bookid,(err,results)=>{
-            if(err){cb(err,null)}
-            cb(null,results)
+        mysql.pool.query(DeleteBook, data.bookid, (err, results) => {
+            if (err) { cb(err, null) }
+            cb(null, results)
         })
     },
-    
+
     // Updatebook figure out cb functions
-    updatebook: function (data,cb){
+    updatebook: function (data, cb) {
         var updatebook = `UPDATE Books SET googleId=?, title=?, isbn=?, publisher=?, publishedDate=?,
                             pageCount=?, rating=?, price=?, quantityAvailable=? Where bookId=?`
-        var {bookid, googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable, authors} = data;
-        values =[googleId,title,isbn,publisher,publishedDate,pageCount,rating,price,quantityAvailable,bookid]
+        var { bookid, googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable, authors } = data;
+        values = [googleId, title, isbn, publisher, publishedDate, pageCount, rating, price, quantityAvailable, bookid]
         blanktoNull(values)
-        mysql.pool.query(updatebook,values,(err,results)=>{
-            if(err){console.log(err)}
+        mysql.pool.query(updatebook, values, (err, results) => {
+            if (err) { console.log(err) }
         })
     },
 
@@ -132,7 +136,6 @@ const orm = {
     //update current order
 
     //update current address
-
 
     //delete current customer
 

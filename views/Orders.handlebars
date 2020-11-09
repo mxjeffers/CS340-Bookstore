@@ -1,15 +1,159 @@
 <body>
-    <h1>Orders</h1>
-
     <div class="container">
-        <table id="order_table" class="table table-striped"></table>
-        Search for an order
-        View All Orders
-        Add A New Order
-
-        Explore Order Details after each order card
-        Update and Delete Button after each Order card
+        <h2>Manage Orders</h2>
+        <p>
+            Search for an order, view details of an order, update, delete an order here.
+        </p>
 
     </div>
+    <div class="container">
+        <form action="" align="right">
+            <label for="orderSearch">Search for An Order by Order ID: </label>
+            <input type="text" id="orderSearch" />
+            <button type="submit" id="orderSearch" class="btn btn-secondary">Search</button>
+            <small id="searchHelp" class="form-text text-muted">Search by Order ID.</small>
+        </form>
+    </div>
+
+    <div class="container">
+        <h4>Add a New Order</h4>
+
+        <form>
+            <div class="form-group">
+                <label for="customerID">Customer ID</label>
+                <input type="text" class="form-control" id="customerID" placeholder="1">
+            </div>
+            <div class="form-group">
+                <label for="bookID">Book ID</label>
+                <input type="text" class="form-control" id="bookID" placeholder="1234">
+            </div>
+            <div class="form-group">
+                <label for="quantitySold">Quantity Sold</label>
+                <input type="text" class="form-control" id="quantitySold" placeholder="1000">
+            </div>
+            <button type="submit" id="addOrder" class="btn btn-success">Submit to Database</button>
+
+        </form>
+    </div>
+
+    <div class="container">
+        <div>
+            <div class="container">
+                <div class="table-responsive">
+                    <h4>View All Existing Orders</h4>
+
+                    <table class="table table-sm" id="orders_table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Order Id</th>
+                                <th scope="col">Customer Id</th>
+                                <th scope="col">OrderDate</th>
+
+                                <th scope="col">View Order Details</th>
+                                <th scope="col">Delete Order</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>1</td>
+                                <td>2020-01-01</td>
+                                <td>
+                                    <button type="submit" class="btn btn-info" data-toggle="modal"
+                                        data-target="#orderDetails">View Details</button>
+                                    <div class="modal fade" id="orderDetails" tabindex="-1" role="dialog"
+                                        aria-labelledby="oderDetailsLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="orderDetailsLabel">Order Details</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="email">Email address</label>
+                                                            <input type="email" class="form-control" id="email"
+                                                                placeholder="test@test.com">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="firstName">First Name</label>
+                                                            <input type="text" class="form-control" id="firstName"
+                                                                placeholder="First Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="lastName">Last Name</label>
+                                                            <input type="text" class="form-control" id="lastName"
+                                                                placeholder="Last Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="street">Street</label>
+                                                            <input type="text" class="form-control" id="street"
+                                                                placeholder="1234 Main St">
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="city">City</label>
+                                                                <input type="text" class="form-control" id="city"
+                                                                    placeholder="Portland">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="state">State</label>
+                                                                <input type="text" class="form-control" id="state"
+                                                                    placeholder="Oregon">
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <label for="zip">Zip</label>
+                                                                <input type="text" class="form-control" id="zip">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="title">Book Title</label>
+                                                                <input type="text" class="form-control" id="title"
+                                                                    placeholder="Eloquent JavaScript, 3rd Edition">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="author">Author</label>
+                                                                <input type="text" class="form-control" id="street"
+                                                                    placeholder="Marijn Haverbeke">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="quantity">Quantity Ordered</label>
+                                                                <input type="text" class="form-control" id="quantity"
+                                                                    placeholder="5">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+
+                                                            <button type="submit" id="updateOrder"
+                                                                class="btn btn-success">Update Order & Save
+                                                                Changes</button>
+
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><button type="submit" class="btn btn-danger">Delete</button></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    $('#addresses_table').dataTable();
+                });
+            </script>
 
 </body>
