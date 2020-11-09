@@ -1,13 +1,14 @@
 const mysql = require("./dbcon")
 
 const orm = {
+    //get and show all books
     selectAllBooks: function (cb) {
         mysql.pool.query('SELECT * FROM Books', (err, data) => {
             if (err) { cb(err, null) };
             cb(null, data)
         })
     },
-
+    //create new book
     addBook: function (data, cb) {
         // This function adds the book data and authors to a database. It ignores duplicates. A Book is a duplicate if it has 
         // the same googleID and price. Once the book is loaded. The authors are added one at a time. Then the BOOKAUTHORS
@@ -34,7 +35,7 @@ const orm = {
         });
     },
 
-
+    //get all authors
     getAllAuthors: function (cb) {
         mysql.pool.query('SELECT * FROM Authors ORDER BY authorId', (err, data) => {
             if (err) { cb(err, null) };
@@ -42,6 +43,7 @@ const orm = {
         })
     },
 
+    //get join table
     getALLBookAuthors: function (cb) {
         var BookAuthor = `SELECT Books.bookId, Books.title, Authors.authorID, Authors.authorName
         FROM Books
@@ -53,7 +55,7 @@ const orm = {
         })
     },
 
-    //add queries for customers, orders, addresses.
+    //SQL queries for customers, orders, addresses.
     //get all customers, orders, addresses
     getAllCustomers: function (cb) {
         mysql.pool.query('SELECT * FROM Customers ORDER BY customerId', (err, data) => {

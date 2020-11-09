@@ -1,7 +1,10 @@
 <body>
-    <p>This page will be used to add books to the website, and view the books curently available. The search box returns book information from the Google
-        Books API. The INSERT form will not allow books with the same google_id and price. This allows books to have different prices if one version sells out.
-        The Books table lists all the books. The info in the description box is large, so the table states if a description is available.
+    <p>This page will be used to add books to the website, and view the books currently available. The search box
+        returns book information from the Google
+        Books API. The INSERT form will not allow books with the same google_id and price. This allows books to have
+        different prices if one version sells out.
+        The Books table lists all the books. The info in the description box is large, so the table states if a
+        description is available.
     </p>
     <div class="container">
         <form action="">
@@ -11,48 +14,49 @@
         </form>
     </div>
     <div class="container"></div>
-        <form>
-            <div class="form-control">
-                <label for="title">Title</label>
-                <input type="text" id="book_title"/>
-                <br>
-                <label for="author">Author</label>
-                <input type="text" id="authors">  <p>Seperate each author by a comma.</p>
-                <br>
-                <label for="Googleid">Google ID</label>
-                <input type="text"id="google_id"/>
-                <br>
-                <label for="ISBN">ISBN</label>
-                <input type="text" id="ISBN"/>
-                <br>
-                <label for="publisher">publisher</label>
-                <input type="text" id="publisher"/>
-                <br>
-                <label for="published date">published date</label>
-                <input type="text"id="published_date"/>
-                <br>
-                <label for="description">description</label>
-                <input type="text"id="description"/>
-                <br>
-                <label for="page count">page count</label>
-                <input type="text"id="page_count"/>
-                <br>
-                <label for="rating">rating</label>
-                <input type="text"id="rating"/>
-                <br>
-                <label for="price">price</label>
-                <input type="text"id="price"/>
-                <br>
-                <label for="quantity">quantity</label>
-                <input type="text"id="quantity"/>
-                <br>
-                <button type="submit" id="database">Send to Database</button>
-            </form>
-            </div>
+    <form>
+        <div class="form-control">
+            <label for="title">Title</label>
+            <input type="text" id="book_title" />
+            <br>
+            <label for="author">Author</label>
+            <input type="text" id="authors">
+            <p>Seperate each author by a comma.</p>
+            <br>
+            <label for="Googleid">Google ID</label>
+            <input type="text" id="google_id" />
+            <br>
+            <label for="ISBN">ISBN</label>
+            <input type="text" id="ISBN" />
+            <br>
+            <label for="publisher">publisher</label>
+            <input type="text" id="publisher" />
+            <br>
+            <label for="published date">published date</label>
+            <input type="text" id="published_date" />
+            <br>
+            <label for="description">description</label>
+            <input type="text" id="description" />
+            <br>
+            <label for="page count">page count</label>
+            <input type="text" id="page_count" />
+            <br>
+            <label for="rating">rating</label>
+            <input type="text" id="rating" />
+            <br>
+            <label for="price">price</label>
+            <input type="text" id="price" />
+            <br>
+            <label for="quantity">quantity</label>
+            <input type="text" id="quantity" />
+            <br>
+            <button type="submit" id="database">Send to Database</button>
+    </form>
+    </div>
     </div>
     <div class="container">
         <table id="book_table" class="table table-striped"></table>
-        
+
     </div>
     <script src="addbooks.js"></script>
 </body>
