@@ -69,48 +69,15 @@ function createbookTable(){
     }
     var booksdata
     $.get("/getAllBooks",(bookdata)=>{
-        
         maketable(bookdata)
         $(document).ready( function () {
             $('#book_table').DataTable();
             //jquery-tabledit adds delete and edit buttons to table.
             //Still need to give them functionality.
-            $('#book_table').Tabledit({
-                columns:{
-                    identifier:[0,'bookid'],
-                    editable: [[1,'googleId'],[2,'title'],[3,'isbn'],[4,'publisher'],[5,'publishedDate'],
-                                [6,'description'],[7,'pageCount'],[8,'rating'],[9,'price'],[10,'quantityAvailable'],
-                                [11,'authors']]},
-                    editButton:true,
-                    deleteButton: true,
-                    buttons: {
-                        edit: {
-                            class: 'btn btn-sm btn-primary',
-                            html: 'EDIT',
-                            action: 'edit'
-                        },
-                        delete: {
-                            class: 'btn btn-sm btn-dark',
-                            html: 'DELETE',
-                            action: 'delete'
-                        },
-                        save: {
-                            class: 'btn btn-sm btn-success',
-                            html: 'Save'
-                        },
-                        restore: {
-                            class: 'btn btn-sm btn-warning',
-                            html: 'Restore',
-                            action: 'restore'
-                        },
-                        confirm: {
-                            class: 'btn btn-sm btn-danger',
-                            html: 'Confirm'
-                        }
-                    }
-                }
-                
-            );
+            tableeditor()
+            
+            $('#book_table').on('draw.dt',()=>{
+            tableeditor()});
         });
         
     })
@@ -144,3 +111,48 @@ function maketable(bookdata){
 }
 createbookTable()
 
+function tableeditor () { $('#book_table').Tabledit({
+    url:"/example",
+    columns:{
+        identifier:[0,'bookid'],
+        editable: [[1,'googleId'],[2,'title'],[3,'isbn'],[4,'publisher'],[5,'publishedDate'],
+                    [6,'description'],[7,'pageCount'],[8,'rating'],[9,'price'],[10,'quantityAvailable'],
+                    [11,'authors']]},
+        
+        editButton:true,
+        deleteButton: true,
+        buttons: {
+            edit: {
+                class: 'btn btn-sm btn-primary',
+                html: 'EDIT',
+                action: 'edit'
+            },
+            delete: {
+                class: 'btn btn-sm btn-dark',
+                html: 'DELETE',
+                action: 'delete'
+            },
+            save: {
+                class: 'btn btn-sm btn-success',
+                html: 'Save'
+            },
+            restore: {
+                class: 'btn btn-sm btn-warning',
+                html: 'Restore',
+                action: 'restore'
+            },
+            confirm: {
+                class: 'btn btn-sm btn-danger',
+                html: 'Confirm'
+            }
+        },
+        onAjax: function(action, serialize) {
+            console.log('onAjax(action, serialize)');
+            console.log(action);
+            console.log(serialize);
+            $('#book_table').DataTable().destroy()
+            createbookTable()
+        },
+    }
+    
+)}
