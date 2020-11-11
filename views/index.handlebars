@@ -1,22 +1,27 @@
 <h2>BOOKSTORE</h2>
 <h4>Still Under Construction</h4>
 <div class="container">
+    <div class="row">
 
-    {{#each book_data}}
-    <div class="card mb-3" style="max-width: 540px; max-height: 500px;">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <img src="http://books.google.com/books/content?id={{this.googleId}}&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-                    alt="" class="card-img-top" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{this.title}}</h5>
-                    <p class="card-text" style="overflow: hidden;">{{this.description}}</p>
-                    <button>Add to Cart</button>
+
+        {{#each book_data}}
+        <div class="col-12">
+            <div class="card border-info mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="http://books.google.com/books/content?id={{this.googleId}}&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                            alt="" class="card-img-top" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.title}}</h5>
+                            <p class="card-text" style="overflow: hidden;">{{this.description}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        {{/each}}
+
     </div>
-    {{/each}}
 </div>
