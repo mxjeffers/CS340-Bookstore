@@ -84,24 +84,38 @@ app.get('/BookAuthors/data', (req, res) => {
 
 //Get Customers, Orders, Addresses pages
 app.get('/Customers', (req, res) => {
-    res.render('Customers')
+    res.render('Customers',{title:"Manage Customers"})
 })
 
 app.get('/Orders', (req, res) => {
-    res.render('Orders')
+    res.render('Orders',{title:"Manage Orders"})
 })
 
 app.get('/Addresses', (req, res) => {
-    res.render('Addresses')
+    res.render('Addresses',{title:"Manage Addresses"})
 })
 // This post handles the edit and delete button on the Books Page
-app.post('/example',(req,res)=>{
+app.post('/bookedit',(req,res)=>{
     console.log(req.body)
     if (req.body.action =='delete'){
         query.deletebook(req.body)
         res.send("completed")
     } else if(req.body.action = 'edit'){
         query.updatebook(req.body)
+        res.send('completed')
+    }
+})
+
+app.post('/authoredit',(req,res)=>{
+    //console.log(req.body)
+    if (req.body.action == 'delete'){
+        query.deleteauthor(req.body)
+        res.send("completed")
+    } else if(req.body.action == 'edit'){
+        query.updateauthor(req.body)
+        res.send('completed')
+    } else if(req.body.action == 'insert'){
+        query.insertauthor(req.body)
         res.send('completed')
     }
 })

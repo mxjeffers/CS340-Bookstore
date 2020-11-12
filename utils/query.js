@@ -63,7 +63,16 @@ const orm = {
 
     //get all authors
     getAllAuthors: function (cb) {
-        mysql.pool.query('SELECT * FROM Authors ORDER BY authorId', (err, data) => {
+        mysql.pool.query(`
+            SELECT Authors.authorId, Authors.authorName,
+            GROUP_CONCAT(Books.title ORDER BY Books.title SEPARATOR ', ')
+            FROM Authors
+            LEFT JOIN BookAuthors
+                ON Authors.authorId = BookAuthors.authorId
+            LEFT JOIN Books
+                ON BookAuthors.bookId = Books.bookId
+            GROUP BY Authors.authorId`, 
+            (err, data) => {
             if (err) { cb(err, null) };
             cb(null, data)
         })
@@ -85,8 +94,8 @@ const orm = {
     deletebook: function (data, cb) {
         var DeleteBook = `DELETE FROM Books WHERE Books.bookId = (?)`
         mysql.pool.query(DeleteBook, data.bookid, (err, results) => {
-            if (err) { cb(err, null) }
-            cb(null, results)
+            if (err) { console.log(err) }
+            
         })
     },
 
@@ -99,6 +108,30 @@ const orm = {
         blanktoNull(values)
         mysql.pool.query(updatebook, values, (err, results) => {
             if (err) { console.log(err) }
+        })
+    },
+    //Insert and Author
+    insertauthor : function(data,cb){
+        var newauthor = 'INSERT IGNORE INTO `Authors`(`authorName`) VALUES (?)'
+        mysql.pool.query(newauthor,data.authorName,(err,results)=>{
+            if(err){console.log(err)}
+        })
+    },
+    //Delete an Author
+    deleteauthor: function (data,cb){
+        var deleteauthor = `DELETE FROM Authors WHERE Authors.authorId = (?)`
+        mysql.pool.query(deleteauthor, data.authorid,(err,results)=>{
+            if (err) {console.log(err)}
+        })
+    },
+    
+    //Update an Authors name
+    updateauthor: function(data,cb){
+        //Since there is only one value check blank to Null with data directly
+        blanktoNull(data.authorName)
+        var updateauthor = `UPDATE Authors Set authorName=? Where authorId = ?`
+        mysql.pool.query(updateauthor,[data.authorName,data.authorid],(err,results)=>{
+            if (err){console.log(err)}
         })
     },
 
