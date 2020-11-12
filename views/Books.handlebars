@@ -7,65 +7,86 @@
         description is available.
     </p>
     <div class="container">
-        <form action="">
-            <label for="booksearch">Search for a book.</label>
+        <form >
+            <label for="booksearch">Search for a book on Google.</label>
             <input type="text" id="booksearch" />
-            <button type="submit" id="search">Search</button>
+            <button type="submit" class="btn btn-secondary"id="search">Search</button>
         </form>
     </div>
+    <br>
     <div class="container">
-        <div class="row">
-            <div class="col-6">
-                <form>
-
-                    <label for="title">Title</label>
-                    <input type="text" id="book_title" />
+        <h4>Add a New Book</h4>
+            <form>
+                   <div class="row">
+                       <div class="col">
+                           <label for="title">Title</label>
+                        <input type="text" class ="form-control" id="book_title" />
+                        </div>
+                    
+                        <div class="col">
+                        <label for="author">Author</label>
+                        <input type="text" class = "form-control"id="authors">
+                        <small id="authorHelp" class="form-text text-muted">Separate each author by a comma.</small>
+                        </div>
+                    </div>
                     <br>
-                    <label for="author">Author</label>
-                    <input type="text" id="authors">
-                    <p>separate each author by a comma.</p>
+                    <div class="row">
+                        <div class="col">
+                        <label for="Googleid">Google ID</label>
+                        <input type="text" id="google_id" class="form-control"/>
+                        </div>
+                    
+                        <div class="col">
+                        <label for="ISBN" >ISBN</label>
+                        <input type="text" id="ISBN"class="form-control" />
+                        </div>
+                    </div>
                     <br>
-                    <label for="Googleid">Google ID</label>
-                    <input type="text" id="google_id" />
+                    <div class="row">
+                        <div class="col">
+                        <label for="publisher">Publisher</label>
+                        <input type="text" id="publisher" class="form-control"/>
+                        </div>
+                        <div class="col">
+                        <label for="published date">Published date</label>
+                        <input type="text" id="published_date" class="form-control"/>
+                        </div>
+                    </div>
                     <br>
-                    <label for="ISBN">ISBN</label>
-                    <input type="text" id="ISBN" />
+                    <div class="row">
+                        <div class="col">
+                        <label for="page count">Page Count</label>
+                        <input type="text" id="page_count" class="form-control"/>
+                        </div>
+                        <div class="col">
+                        <label for="rating">Rating</label>
+                        <input type="text" id="rating"class="form-control" />
+                        <small id="ratingHelp" class="form-text text-muted">Only Whole Numbers 1-5.</small>
+                        </div>
+                        <div class="col">
+                        <label for="price">Price</label>
+                        <input type="text" id="price" class="form-control"/>
+                        </div>
+                        <div class="col">
+                        <label for="quantity">Quantity</label>
+                        <input type="text" id="quantity" class="form-control"/>
+                        </div>
+                        <br>
+                    </div>
+                    <label for="description">Description</label>
+                    <textarea  id="description"class="form-control" rows="4"></textarea>
                     <br>
-                    <label for="publisher">publisher</label>
-                    <input type="text" id="publisher" />
-                    <br>
-                    <label for="published date">published date</label>
-                    <input type="text" id="published_date" />
-                    <br>
-                    <label for="description">description</label>
-                    <input type="text" id="description" />
-                    <br>
-                    <label for="page count">page count</label>
-                    <input type="text" id="page_count" />
-                    <br>
-                    <label for="rating">rating</label>
-                    <input type="text" id="rating" />
-                    <br>
-                    <label for="price">price</label>
-                    <input type="text" id="price" />
-                    <br>
-                    <label for="quantity">quantity</label>
-                    <input type="text" id="quantity" />
-                    <br>
-                    <button type="submit" id="database">Send to Database</button>
+                    <button type="submit" class="btn btn-success"id="database">Send to Database</button>
                 </form>
-            </div>
+            
         </div>
         <br><br>
-        <div class="row">
-            <div class="col-6">
+        <div class="container">
                 <table id="book_table" class="table table-striped"></table>
-            </div>
         </div>
-    </div>
-
-
+    
     <script src="addbooks.js"></script>
+    
     <script>
         $(document).ready(function () {
             $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
