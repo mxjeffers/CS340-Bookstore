@@ -84,7 +84,7 @@ function createbookTable () {
     'pageCount',
     'rating',
     'price',
-    'quantityAvailable',
+    'qty',
     'authors'
   ]
   var thead = document.createElement('thead')
@@ -100,7 +100,9 @@ function createbookTable () {
   $.get('/getAllBooks', bookdata => {
     maketable(bookdata)
     $(document).ready(function () {
-      $('#book_table').DataTable()
+      $('#book_table').DataTable({
+        "scrollX": true
+      })
       //jquery-tabledit adds delete and edit buttons to table.
       //Still need to give them functionality.
       tableeditor()
@@ -151,7 +153,7 @@ function tableeditor () {
         [3, 'isbn'],
         [4, 'publisher'],
         [5, 'publishedDate'],
-        [6, 'description'],
+        //[6, 'description'],
         [7, 'pageCount'],
         [8, 'rating'],
         [9, 'price'],

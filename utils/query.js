@@ -110,7 +110,7 @@ const orm = {
             if (err) { console.log(err) }
         })
     },
-    //Insert and Author
+    //Insert an Author
     insertauthor : function(data,cb){
         var newauthor = 'INSERT IGNORE INTO `Authors`(`authorName`) VALUES (?)'
         mysql.pool.query(newauthor,data.authorName,(err,results)=>{
