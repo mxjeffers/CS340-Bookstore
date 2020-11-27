@@ -57,7 +57,9 @@ $('#database').on('click', e => {
   console.log(payload)
 
   //ajax data to server
-  $.post('/addbook', payload)
+  $.post('/addbook', payload,function(data,status,xhr){
+    console.log(data)
+  })
     .then(() => {
       alert('Book Added')
       //To correctly render table again, use datatable destroy then recreate
@@ -85,8 +87,8 @@ function createbookTable () {
     'rating',
     'price',
     'qty',
-    'authors'
-  ]
+    'authors',
+     ]
   var thead = document.createElement('thead')
   book_table.appendChild(thead)
   var tr = document.createElement('tr')
@@ -193,10 +195,16 @@ function tableeditor () {
       console.log('onAjax(action, serialize)')
       console.log(action)
       console.log(serialize)
+      console.log("testing now")
       $('#book_table')
-        .DataTable()
-        .destroy()
+      .DataTable()
+      .destroy()
       createbookTable()
+    },
+    onSuccess: function (data,textStatus, jqXHR) {
+      console.log("supfresh")
+      
     }
+    
   })
 }

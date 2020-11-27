@@ -134,6 +134,12 @@ const orm = {
             if (err){console.log(err)}
         })
     },
+    deleteBookAuthor: function(data){
+        var delBkAuthor = `DELETE FROM BookAuthors Where bookid = ? and Authorid = ?`
+        mysql.pool.query(delBkAuthor,[data.bookid,data.authorid],(err,results)=>{
+            if (err){console.log(err)}
+        })
+    },
 
     //SQL queries for customers, orders, addresses.
     //get all customers, orders, addresses
