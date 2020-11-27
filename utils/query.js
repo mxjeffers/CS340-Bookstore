@@ -141,6 +141,13 @@ const orm = {
         })
     },
 
+    addbookauth: function(data){
+        var addbookauth = 'INSERT IGNORE INTO `BookAuthors`(`bookId`, `authorId`) VALUES (?,?)'
+        mysql.pool.query(addbookauth,[data.bookId,data.authorId],(err,results)=>{
+            if (err){console.log(err)}
+        })
+    },
+
     //SQL queries for customers, orders, addresses.
     //get all customers, orders, addresses
     getAllCustomers: function (cb) {

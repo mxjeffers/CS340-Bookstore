@@ -122,11 +122,15 @@ app.post('/authoredit',(req,res)=>{
 })
 
 app.post('/bookauthoredit',(req,res)=>{
-    console.log(req.body)
     if (req.body.action == 'remove'){
         query.deleteBookAuthor(req.body)
         res.send("completed")
     }
+})
+
+app.post('/addbookauth',(req,res)=>{
+    query.addbookauth(req.body)
+    res.send('completed')
 })
 
 app.listen(app.get('port'), function () {

@@ -1,3 +1,7 @@
+//const { getALLBookAuthors } = require("../utils/query")
+
+//const e = require("express")
+
 const author_table = document.getElementById("author_table")
     function createAuthorTable() {
         $('#author_table').empty()
@@ -40,7 +44,6 @@ const author_table = document.getElementById("author_table")
 function tableeditor(){
         $('#author_table').Tabledit({
             // Changed commands so edit button acts like delete button
-            // 
             url: '/bookauthoredit',
             columns: {
                 identifier: [0,'bookid'],
@@ -64,17 +67,40 @@ function tableeditor(){
             editButton: true,
             inputClass: 'readonly form-control-plaintext',
             onAjax: function (action, serialize) {
-                console.log('onAjax(action, serialize)')
-                console.log(action)
-                console.log(serialize)
-                console.log("testing now")
+                //After confirm button is hit this recreate table
                 $('#author_table').DataTable().destroy()
                 createAuthorTable()
             }
         })
 }
 
+function getselectlists(){
+    $.get('/getAllBooks', bookdata =>{
+        $.each(bookdata,(key,val)=>{
+            $('#book_select').append('<option value="'+val.bookId+'">'+val.title+'</option>')//.selectpicker('refresh')
+        })
+    })
+    $.get('/authordata', (authordata) => {
+        $.each(authordata,(key,val)=>{
+            $('#author_select').append('<option value="'+val.authorId+'">'+val.authorName+'</option>')
+        })
+    })
+
+}
 createAuthorTable()
 $(document).ready(function () {
     $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
+    getselectlists()
+});
+
+$('#addbookauth').on('click', e =>{
+    e.preventDefault()
+    var payload = {
+        bookId: $('#book_select').val(),
+        authorId :$('#author_select').val()
+    }
+    $.post('/addbookauth', payload,function(data,status,xhr){
+        $('#author_table').DataTable().destroy()
+        createAuthorTable()
+    })  
 });
