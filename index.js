@@ -13,6 +13,7 @@ let port = process.env.PORT;
 if (port == null || port == "") {
     port = 3000;
 }
+
 app.set('port', port);
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -96,7 +97,7 @@ app.get('/Addresses', (req, res) => {
 })
 // This post handles the edit and delete button on the Books Page
 app.post('/bookedit',(req,res)=>{
-    console.log(req.body)
+    //console.log(req.body)
     if (req.body.action =='delete'){
         query.deletebook(req.body)
         res.send("completed")
@@ -118,6 +119,18 @@ app.post('/authoredit',(req,res)=>{
         query.insertauthor(req.body)
         res.send('completed')
     }
+})
+
+app.post('/bookauthoredit',(req,res)=>{
+    if (req.body.action == 'remove'){
+        query.deleteBookAuthor(req.body)
+        res.send("completed")
+    }
+})
+
+app.post('/addbookauth',(req,res)=>{
+    query.addbookauth(req.body)
+    res.send('completed')
 })
 
 app.listen(app.get('port'), function () {
