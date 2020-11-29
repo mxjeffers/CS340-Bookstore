@@ -9,6 +9,20 @@ function blanktoNull(array) {
     }
 }
 
+function rating_verify(data){
+    //This function verifies the rating number is between 1 and 5
+    if (data == undefined){
+        return
+    } else if (data < 1){
+        data = 1
+    } else if (data >= 5){
+        data = 5
+    } else{
+        data = Math.round(data)
+    }
+    return data
+
+}
 const orm = {
     //get and show all books
     selectAllBooks: function (cb) {
@@ -27,7 +41,7 @@ const orm = {
             cb(null, data)
         })
     },
-    //create new book
+    //Add new Book to database
     addBook: function (data, cb) {
         // This function adds the book data and authors to a database. It ignores duplicates. A Book is a duplicate if it has 
         // the same googleID and price. Once the book is loaded. The authors are added one at a time. Then the BOOKAUTHORS
@@ -36,27 +50,25 @@ const orm = {
         var { googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable, authors } = data;
         var newauthor = 'INSERT IGNORE INTO `Authors`(`authorName`) VALUES (?)'
         var bookAuthors = 'INSERT IGNORE INTO `BookAuthors`(`bookId`, `authorId`) VALUES ((SELECT bookID FROM Books WHERE googleID = ? and price = ?),(SELECT authorId FROM Authors WHERE authorName = ?));'
+        rating = rating_verify(rating)
         var values = [googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable]
-
+        
+        // Set values to Null if they are blank
         blanktoNull(values)
-        //console.log(googleId)
-        //console.log(publishedDate)
+        rating_verify(values[7])
         // Add Book to database
         mysql.pool.query(newbook, values, (err, results) => {
             if (err) console.log(err)
-            //console.log("BOOK")
+            
         })
         // Add each author to database
         authors.forEach(curr_author => {
             mysql.pool.query(newauthor, [curr_author], (err, results) => {
                 if (err) console.log(err)
-                //console.log(results)
             })
             // Link book and authors
             mysql.pool.query(bookAuthors, [googleId, price, curr_author], (err, results) => {
                 if (err) console.log(err)
-                //console.log("BOOKAUTHOS")
-                //console.log(results)
             })
         });
     },
@@ -104,8 +116,11 @@ const orm = {
         var updatebook = `UPDATE Books SET googleId=?, title=?, isbn=?, publisher=?, publishedDate=?,
                             pageCount=?, rating=?, price=?, quantityAvailable=? Where bookId=?`
         var { bookid, googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable, authors } = data;
+        console.log(rating)
+        rating = rating_verify(rating)
         values = [googleId, title, isbn, publisher, publishedDate, pageCount, rating, price, quantityAvailable, bookid]
         blanktoNull(values)
+        //values[6] = rating_verify(values[6])
         mysql.pool.query(updatebook, values, (err, results) => {
             if (err) { console.log(err) }
         })
