@@ -3,40 +3,25 @@
     <p> This page shows the relationship between a book and its authors.</p>
 </div>
 <div class="container">
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+            <select class='form-control' id='book_select'>
+            </select></div>
+            <div class="col">
+            <select id="author_select" class="form-control"></select></div>
+            <div class="col">
+                <button type="submit" class="btn btn-success" id="addbookauth">Add Book Author</button>
+            </div>
+        </div>
+        <div class="row">
+            
+        </div>
+    </div>
+</div>
+<div class="container">
     <table id="author_table" class="table table-striped"></table>
 
 </div>
 
-<script>
-    const author_table = document.getElementById("author_table")
-    function createAuthorTable() {
-        $('#author_table').empty()
-        var headings = ["bookId", "Title", "authorId", "author"]
-        var tr = author_table.insertRow(-1)
-        for (var i = 0; i < headings.length; i++) {
-            var th = document.createElement('th')
-            th.innerHTML = headings[i]
-            tr.appendChild(th)
-        }
-        //change tomorrow
-        $.get('/BookAuthors/data', (authordata) => {
-            maketable(authordata)
-        })
-    }
-    function maketable(authordata) {
-        $.each(authordata, (key, val) => {
-            var tr = author_table.insertRow(-1)
-            for (x in val) {
-                td = document.createElement('td')
-                td.innerHTML = (val[x])
-                tr.appendChild(td)
-            }
-
-        })
-    }
-
-    createAuthorTable()
-    $(document).ready(function () {
-        $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
-    });
-</script>
+<script src="bookauthors.js"></script>
