@@ -1,21 +1,26 @@
 
 <h2>BOOKSTORE</h2>
 <h4>Still Under Construction</h4>
-<div class="conatainer">
+<div class="container">
     <div class="btn-group" role="group">
         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         View by Rating
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-        <a class="dropdown-item" href="#">1</a>
-        <a class="dropdown-item" href="#">2</a>
-        <a class="dropdown-item" href="#">3</a>
-        <a class="dropdown-item" href="#">4</a>
-        <a class="dropdown-item" href="#">5</a>
+        <a class="dropdown-item" href="/">View All Books</a>
+        <a class="dropdown-item" href="/rating/1">1</a>
+        <a class="dropdown-item" href="/rating/2">2</a>
+        <a class="dropdown-item" href="/rating/3">3</a>
+        <a class="dropdown-item" href="/rating/4">4</a>
+        <a class="dropdown-item" href="/rating/5">5</a>
         </div>
 </div>
+<h5>{{#if sorted}}
+    Books Rated {{sorted}} out of 5
+    {{/if}}
+</h5>
 
-<div class="container">
+<div class="container" id="main_container">
     <div class="row">
 
 

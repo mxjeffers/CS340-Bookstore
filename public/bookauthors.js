@@ -1,6 +1,3 @@
-//const { getALLBookAuthors } = require("../utils/query")
-
-//const e = require("express")
 
 const author_table = document.getElementById("author_table")
     function createAuthorTable() {

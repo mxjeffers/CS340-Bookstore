@@ -36,6 +36,20 @@ app.get('/', (req, res) => {
     })
 });
 
+// Update index page with books by rating
+app.get('/rating/:rating',(req,res)=>{
+    console.log(req.params)
+    query.bookbyrating(req.params.rating, (error,data) =>{
+        if (error){ res.send(error)
+        } else{
+            res.render('index',{book_data:data,
+                                title:"Bookstore",
+                                sorted: req.params.rating})
+        }
+    })
+})
+
+
 app.get('/Books',(req,res)=>{
     res.render('Books',{title:"Books"})
 })

@@ -163,6 +163,17 @@ const orm = {
         })
     },
 
+    bookbyrating: function(rating, cb){
+        var rating_query = `SELECT * FROM Books WHERE rating = ?`
+        mysql.pool.query(rating_query,rating,(err,results)=>{
+            if (err){cb(err,null)
+            } else {
+                cb(null,results)
+            }
+        })
+
+    },
+
     //SQL queries for customers, orders, addresses.
     //get all customers, orders, addresses
     getAllCustomers: function (cb) {
