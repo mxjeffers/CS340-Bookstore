@@ -71,11 +71,11 @@ const orm = {
                 ON Authors.authorId = BookAuthors.authorId
             LEFT JOIN Books
                 ON BookAuthors.bookId = Books.bookId
-            GROUP BY Authors.authorId`, 
+            GROUP BY Authors.authorId`,
             (err, data) => {
-            if (err) { cb(err, null) };
-            cb(null, data)
-        })
+                if (err) { cb(err, null) };
+                cb(null, data)
+            })
     },
 
     //get join table
@@ -95,7 +95,7 @@ const orm = {
         var DeleteBook = `DELETE FROM Books WHERE Books.bookId = (?)`
         mysql.pool.query(DeleteBook, data.bookid, (err, results) => {
             if (err) { console.log(err) }
-            
+
         })
     },
 
@@ -111,32 +111,40 @@ const orm = {
         })
     },
     //Insert an Author
-    insertauthor : function(data,cb){
+    insertauthor: function (data, cb) {
         var newauthor = 'INSERT IGNORE INTO `Authors`(`authorName`) VALUES (?)'
-        mysql.pool.query(newauthor,data.authorName,(err,results)=>{
-            if(err){console.log(err)}
+        mysql.pool.query(newauthor, data.authorName, (err, results) => {
+            if (err) { console.log(err) }
         })
     },
     //Delete an Author
-    deleteauthor: function (data,cb){
+    deleteauthor: function (data, cb) {
         var deleteauthor = `DELETE FROM Authors WHERE Authors.authorId = (?)`
-        mysql.pool.query(deleteauthor, data.authorid,(err,results)=>{
-            if (err) {console.log(err)}
+        mysql.pool.query(deleteauthor, data.authorid, (err, results) => {
+            if (err) { console.log(err) }
         })
     },
-    
+
     //Update an Authors name
-    updateauthor: function(data,cb){
+    updateauthor: function (data, cb) {
         //Since there is only one value check blank to Null with data directly
         blanktoNull(data.authorName)
         var updateauthor = `UPDATE Authors Set authorName=? Where authorId = ?`
-        mysql.pool.query(updateauthor,[data.authorName,data.authorid],(err,results)=>{
-            if (err){console.log(err)}
+        mysql.pool.query(updateauthor, [data.authorName, data.authorid], (err, results) => {
+            if (err) { console.log(err) }
         })
     },
 
     //SQL queries for customers, orders, addresses.
-    //get all customers, orders, addresses
+    //READ all customers, orders, addresses
+
+    getAllAddresses: function (cb) {
+        mysql.pool.query('SELECT * FROM Addresses ORDER BY addressId', (err, data) => {
+            if (err) { cb(err, null) };
+            cb(null, data)
+        })
+    },
+
     getAllCustomers: function (cb) {
         mysql.pool.query('SELECT * FROM Customers ORDER BY customerId', (err, data) => {
             if (err) { cb(err, null) };
@@ -146,13 +154,6 @@ const orm = {
 
     getAllOrders: function (cb) {
         mysql.pool.query('SELECT * FROM Orders ORDER BY orderId', (err, data) => {
-            if (err) { cb(err, null) };
-            cb(null, data)
-        })
-    },
-
-    getAllAddresses: function (cb) {
-        mysql.pool.query('SELECT * FROM Addresses ORDER BY addressId', (err, data) => {
             if (err) { cb(err, null) };
             cb(null, data)
         })
