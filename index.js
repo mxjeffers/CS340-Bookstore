@@ -20,7 +20,7 @@ app.set('view engine', 'handlebars')
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/public', express.static(__dirname + '/public'))
+app.use('/public', express.static(__dirname + '/public'));
 
 
 // Youtube video used to setup
@@ -39,8 +39,39 @@ app.get('/', (req, res) => {
     })
 });
 
-app.get('/Books', (req, res) => {
-    res.render('Books', { title: "Books" })
+// Update index page with books by rating
+app.get('/rating/:rating',(req,res)=>{
+    query.bookbyrating(req.params.rating, (error,data) =>{
+        if (error){ res.send(error)
+        } else{
+            res.render('index',{book_data:data,
+                                title:"Bookstore",
+                                sorted: req.params.rating})
+        }
+    })
+})
+
+app.get('/author/:authorId/Name/:authorName',(req,res)=>{
+    query.selectAuthor(req.params.authorId, (error,data)=>{
+        if (error){res.send(error)
+        } else {
+            
+            if(data.length == 0){
+                
+                res.render('index',{title:"Bookstore",
+                                    nobooks: "true"})
+            } else{
+            
+            res.render('index',{book_data:data,
+                                title:"Bookstore",
+                            Author:req.params.authorName})}
+        }
+    })
+})
+
+
+app.get('/Books',(req,res)=>{
+    res.render('Books',{title:"Books"})
 })
 
 app.post('/addbook', (req, res) => {
@@ -74,6 +105,24 @@ app.get('/authordata', (req, res) => {
 })
 app.get('/BookAuthors', (req, res) => {
     res.render('BookAuthors', { title: "BookAuthors" })
+})
+
+app.get('/OrderedAuthors',(req,res)=>{
+    query.orderedauthors((err,data)=>{
+        if(err){ res.send(err)
+        } else {
+            res.send(data)
+        }
+    })
+})
+
+app.get('/OrderedBooks',(req,res)=>{
+    query.orderedbooktitles((err,data)=>{
+        if(err){res.send(err)
+        } else {
+            res.send(data)
+        }
+    })
 })
 
 app.get('/BookAuthors/data', (req, res) => {

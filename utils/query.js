@@ -9,6 +9,20 @@ function blanktoNull(array) {
     }
 }
 
+function rating_verify(data){
+    //This function verifies the rating number is between 1 and 5
+    if (data == undefined){
+        return
+    } else if (data < 1){
+        data = 1
+    } else if (data >= 5){
+        data = 5
+    } else{
+        data = Math.round(data)
+    }
+    return data
+
+}
 const orm = {
     //get and show all books
     selectAllBooks: function (cb) {
@@ -27,7 +41,7 @@ const orm = {
             cb(null, data)
         })
     },
-    //create new book
+    //Add new Book to database
     addBook: function (data, cb) {
         // This function adds the book data and authors to a database. It ignores duplicates. A Book is a duplicate if it has 
         // the same googleID and price. Once the book is loaded. The authors are added one at a time. Then the BOOKAUTHORS
@@ -36,27 +50,25 @@ const orm = {
         var { googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable, authors } = data;
         var newauthor = 'INSERT IGNORE INTO `Authors`(`authorName`) VALUES (?)'
         var bookAuthors = 'INSERT IGNORE INTO `BookAuthors`(`bookId`, `authorId`) VALUES ((SELECT bookID FROM Books WHERE googleID = ? and price = ?),(SELECT authorId FROM Authors WHERE authorName = ?));'
+        rating = rating_verify(rating)
         var values = [googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable]
-
+        
+        // Set values to Null if they are blank
         blanktoNull(values)
-        //console.log(googleId)
-        //console.log(publishedDate)
+        rating_verify(values[7])
         // Add Book to database
         mysql.pool.query(newbook, values, (err, results) => {
             if (err) console.log(err)
-            //console.log("BOOK")
+            
         })
         // Add each author to database
         authors.forEach(curr_author => {
             mysql.pool.query(newauthor, [curr_author], (err, results) => {
                 if (err) console.log(err)
-                //console.log(results)
             })
             // Link book and authors
             mysql.pool.query(bookAuthors, [googleId, price, curr_author], (err, results) => {
                 if (err) console.log(err)
-                //console.log("BOOKAUTHOS")
-                //console.log(results)
             })
         });
     },
@@ -104,6 +116,8 @@ const orm = {
         var updatebook = `UPDATE Books SET googleId=?, title=?, isbn=?, publisher=?, publishedDate=?,
                             pageCount=?, rating=?, price=?, quantityAvailable=? Where bookId=?`
         var { bookid, googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable, authors } = data;
+        // Verify rating is between 1 and 5 
+        rating = rating_verify(rating)
         values = [googleId, title, isbn, publisher, publishedDate, pageCount, rating, price, quantityAvailable, bookid]
         blanktoNull(values)
         mysql.pool.query(updatebook, values, (err, results) => {
@@ -145,6 +159,60 @@ const orm = {
         var addbookauth = 'INSERT IGNORE INTO `BookAuthors`(`bookId`, `authorId`) VALUES (?,?)'
         mysql.pool.query(addbookauth,[data.bookId,data.authorId],(err,results)=>{
             if (err){console.log(err)}
+        })
+    },
+
+    // Selects books by rating
+    bookbyrating: function(rating, cb){
+        var rating_query = `SELECT * FROM Books WHERE rating = ?`
+        mysql.pool.query(rating_query,rating,(err,results)=>{
+            if (err){cb(err,null)
+            } else {
+                cb(null,results)
+            }
+        })
+    },
+
+    selectAuthor: function(authorid,cb){
+        var sel_author_query = `SELECT Books.bookId, Books.googleId, Books.title, Books.isbn, Books.publisher, Books.publishedDate,
+        Books.description, Books.pageCount, Books.rating, Books.price, Books.quantityAvailable, Authors.authorName
+            FROM Authors
+	        INNER JOIN BookAuthors
+		    ON Authors.authorId = BookAuthors.authorId
+	        INNER JOIN Books
+		    ON BookAuthors.bookId = Books.bookId
+            WHERE Authors.authorid = ?`
+        mysql.pool.query(sel_author_query,authorid,(err,results)=>{
+            if (err){cb(err,null)
+            } else {
+                cb(null,results)
+            }
+        })  
+    },
+
+    // Orders authors by name
+    orderedauthors: function(cb){
+        var orderauthor = `SELECT Authors.authorId, Authors.authorName
+                            FROM Authors
+                            Order BY Authors.authorName`
+        mysql.pool.query(orderauthor,(err,results)=>{
+            if (err){cb(err,null)
+            } else {
+                cb(null,results)
+            }
+        })
+    },
+
+    // Orders booktitles by title
+    orderedbooktitles: function(cb){
+        var ordertitles = `SELECT Books.BookId,  Books.title
+                            FROM Books
+                            ORDER BY Books.title`
+        mysql.pool.query(ordertitles,(err,results)=>{
+            if(err){cb(err,null)
+            } else {
+                cb(null,results)
+            }
         })
     },
 
