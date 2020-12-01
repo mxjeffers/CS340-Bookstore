@@ -30,9 +30,12 @@ app.get('/', (req, res) => {
     query.selectAllBooks((error, data) => {
         if (error) {
             res.send(error)
-        }else{
-        res.render('index',{book_data:data,
-                            title:"Bookstore"})}
+        } else {
+            res.render('index', {
+                book_data: data,
+                title: "Bookstore"
+            })
+        }
     })
 });
 
@@ -84,8 +87,8 @@ app.get('/getAllBooks', (req, res) => {
     })
 })
 
-app.get('/authors',(req,res)=>{
-    res.render('authors',{title:"Authors"})
+app.get('/authors', (req, res) => {
+    res.render('authors', { title: "Authors" })
 })
 
 app.get('/authordata', (req, res) => {
@@ -97,8 +100,8 @@ app.get('/authordata', (req, res) => {
         }
     })
 })
-app.get('/BookAuthors',(req,res)=>{
-    res.render('BookAuthors',{title:"BookAuthors"})
+app.get('/BookAuthors', (req, res) => {
+    res.render('BookAuthors', { title: "BookAuthors" })
 })
 
 app.get('/OrderedAuthors',(req,res)=>{
@@ -131,23 +134,40 @@ app.get('/BookAuthors/data', (req, res) => {
 
 //Get Customers, Orders, Addresses pages
 app.get('/Customers', (req, res) => {
-    res.render('Customers',{title:"Manage Customers"})
+    res.render('Customers', { title: "Manage Customers" })
 })
 
 app.get('/Orders', (req, res) => {
-    res.render('Orders',{title:"Manage Orders"})
+    res.render('Orders', { title: "Manage Orders" })
 })
 
 app.get('/Addresses', (req, res) => {
-    res.render('Addresses',{title:"Manage Addresses"})
+    res.render('Addresses', { title: "Manage Addresses" })
 })
+
+//Create
+app.post('/Customers', (req, res) => {
+    res.render('Customers', { title: "Manage Customers" })
+})
+//Edit
+app.put('/Customers', (req, res) => {
+    res.render('Customers', { title: "Manage Customers" })
+})
+//delete
+app.delete('/Customers', (req, res) => {
+    res.render('Customers', { title: "Manage Customers" })
+})
+
+
+
+
 // This post handles the edit and delete button on the Books Page
-app.post('/bookedit',(req,res)=>{
+app.post('/bookedit', (req, res) => {
     //console.log(req.body)
-    if (req.body.action =='delete'){
+    if (req.body.action == 'delete') {
         query.deletebook(req.body)
         res.send("completed")
-    } else if(req.body.action = 'edit'){
+    } else if (req.body.action = 'edit') {
         query.updatebook(req.body)
         res.send('completed')
     }
@@ -157,10 +177,10 @@ app.post('/authoredit',(req,res)=>{
     if (req.body.action == 'delete'){
         query.deleteauthor(req.body)
         res.send("completed")
-    } else if(req.body.action == 'edit'){
+    } else if (req.body.action == 'edit') {
         query.updateauthor(req.body)
         res.send('completed')
-    } else if(req.body.action == 'insert'){
+    } else if (req.body.action == 'insert') {
         query.insertauthor(req.body)
         res.send('completed')
     }
