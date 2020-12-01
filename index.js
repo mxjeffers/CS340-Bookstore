@@ -72,6 +72,7 @@ app.get('/authordata', (req, res) => {
         }
     })
 })
+
 app.get('/BookAuthors', (req, res) => {
     res.render('BookAuthors', { title: "BookAuthors" })
 })
@@ -86,7 +87,7 @@ app.get('/BookAuthors/data', (req, res) => {
     })
 })
 
-//Get Customers, Orders, Addresses pages
+//Show Customers, Orders, Addresses pages
 app.get('/Customers', (req, res) => {
     res.render('Customers', { title: "Manage Customers" })
 })
@@ -99,20 +100,51 @@ app.get('/Addresses', (req, res) => {
     res.render('Addresses', { title: "Manage Addresses" })
 })
 
+//Get data for Customers, Orders, Addresses
+app.get('/getAllCustomers', (req, res) => {
+    query.getAllCustomers((error, data) => {
+        if (error) {
+            res.send(error)
+        } else {
+            res.send(data)
+        }
+    })
+})
+
+app.get('/getAllAddresses', (req, res) => {
+    query.getAllAddresses((error, data) => {
+        if (error) {
+            res.send(error)
+        } else {
+            res.send(data)
+        }
+    })
+})
+
+app.get('/getAllOrders', (req, res) => {
+    query.getAllOrders((error, data) => {
+        if (error) {
+            res.send(error)
+        } else {
+            res.send(data)
+        }
+    })
+})
+
 //Create
-app.post('/Customers', (req, res) => {
+app.post('/addCustomers', (req, res) => {
     res.render('Customers', { title: "Manage Customers" })
 })
+
 //Edit
-app.put('/Customers', (req, res) => {
+app.post('/editCustomers', (req, res) => {
     res.render('Customers', { title: "Manage Customers" })
 })
+
 //delete
-app.delete('/Customers', (req, res) => {
+app.delete('/deleteCustomers', (req, res) => {
     res.render('Customers', { title: "Manage Customers" })
 })
-
-
 
 
 // This post handles the edit and delete button on the Books Page
