@@ -1,22 +1,43 @@
 
 const author_table = document.getElementById("author_table")
+
+
 function createAuthorTable() {
-    $('#author_table').empty()
-    var headings = ["bookId", "Title", "authorId", "author"]
-    var thead = document.createElement('thead')
-    author_table.appendChild(thead)
-    var tr = document.createElement('tr')
-    for (var i = 0; i < headings.length; i++) {
-        var th = document.createElement('th')
-        th.innerHTML = headings[i]
-        tr.appendChild(th)
-        thead.appendChild(tr)
+        $('#author_table').empty()
+        var headings = ["bookId", "Title", "authorId", "author"]
+        var thead =  document.createElement('thead')
+        author_table.appendChild(thead)
+        var tr = document.createElement('tr')
+        for (var i = 0; i < headings.length; i++) {
+            var th = document.createElement('th')
+            th.innerHTML = headings[i]
+            tr.appendChild(th)
+            thead.appendChild(tr)
+        }
+        $.get('/BookAuthors/data', (authordata) => {
+            maketable(authordata)
+            $(document).ready(function() {
+                $('#author_table').DataTable()
+                tableeditor()
+                $('#author_table').on('draw.dt', () =>{
+                    tableeditor()
+                })
+            })
+        })
     }
-    $.get('/BookAuthors/data', (authordata) => {
-        maketable(authordata)
-        $(document).ready(function () {
-            $('#author_table').DataTable()
-            tableeditor()
+
+    function maketable(authordata) {
+        tbody =  document.createElement('tbody')
+        author_table.appendChild(tbody)
+        $.each(authordata, (key, val) => {
+            var tr = author_table.insertRow(-1)
+            for (x in val) {
+                td = document.createElement('td')
+                td.innerHTML = (val[x])
+                tr.appendChild(td)
+            }
+            tbody.appendChild(tr)
+
         })
     })
 })

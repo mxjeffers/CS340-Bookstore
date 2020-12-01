@@ -55,13 +55,10 @@ app.get('/author/:authorId/Name/:authorName',(req,res)=>{
     query.selectAuthor(req.params.authorId, (error,data)=>{
         if (error){res.send(error)
         } else {
-            
             if(data.length == 0){
-                
                 res.render('index',{title:"Bookstore",
                                     nobooks: "true"})
             } else{
-            
             res.render('index',{book_data:data,
                                 title:"Bookstore",
                             Author:req.params.authorName})}
@@ -208,9 +205,8 @@ app.post('/bookedit', (req, res) => {
     }
 })
 
-app.post('/authoredit', (req, res) => {
-    //console.log(req.body)
-    if (req.body.action == 'delete') {
+app.post('/authoredit',(req,res)=>{
+    if (req.body.action == 'delete'){
         query.deleteauthor(req.body)
         res.send("completed")
     } else if (req.body.action == 'edit') {
@@ -222,16 +218,40 @@ app.post('/authoredit', (req, res) => {
     }
 })
 
-app.post('/bookauthoredit', (req, res) => {
-    if (req.body.action == 'remove') {
+// Removes a book author link
+app.post('/bookauthoredit',(req,res)=>{
+    if (req.body.action == 'remove'){
         query.deleteBookAuthor(req.body)
         res.send("completed")
     }
 })
 
-app.post('/addbookauth', (req, res) => {
+// adds bookauthor to BookAuthors table
+app.post('/addbookauth',(req,res)=>{
     query.addbookauth(req.body)
     res.send('completed')
+})
+
+// Sends all customer data from database
+app.get('/getCustomers',(req,res)=>{
+    query.getAllCustomers((err,data)=>{
+        if(err){res.send(err)
+        } else{
+            res.send(data)
+        }
+    })
+})
+
+// Route to add a customer to the database
+app.post('/addCustomer',(req,res)=>{
+    console.log(req.body)
+    query.addCustomer(req.body, (err,data)=>{
+        if(err){res.send(err)
+            console.log(err)
+        } else{
+            res.send("Customer Added")
+        }
+    })
 })
 
 app.listen(app.get('port'), function () {

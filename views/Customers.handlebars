@@ -14,7 +14,7 @@
         <form action="" align="right">
             <label for="customerSearch">Search for A Customer: </label>
             <input type="text" id="customerSearch" />
-            <button type="submit" id="customerSearch" class="btn btn-secondary">Search</button>
+            <button type="submit" id="customerSearch1" class="btn btn-secondary">Search</button>
             <small id="searchHelp" class="form-text text-muted">Search by any text in the customer's name, email
                 address.</small>
         </form>
@@ -24,154 +24,46 @@
         <h4>Add a New Customer</h4>
 
         <form>
+            <div class="row">
+                <div class="col">
             <div class="form-group">
                 <label for="addEmail">Email address</label>
                 <input type="email" class="form-control" id="addEmail" aria-describedby="emailHelp">
                 <small id="emailHelp" class="form-text text-muted">Please input Customer's email here.</small>
             </div>
-
+                </div>
+                <div class="col">
             <div class="form-group">
                 <label for="addFirstName">First Name</label>
                 <input type="text" class="form-control" id="addFirstName" placeholder="First Name">
-            </div>
+            </div></div>
+            <div class="col">
             <div class="form-group">
                 <label for="addLastName">Last Name</label>
                 <input type="text" class="form-control" id="addLastName" placeholder="Last Name">
+            </div></div> </div>
+            <div class="row">
+                <div class="col">
+                    <select class="form-control" id="address_select">
+                         <option value="">No Address</option>
+                    </select>
+                </div>
             </div>
-
-            <button type="submit" id="addCustomer" class="btn btn-success">Submit to Database</button>
-        </form </div>
+            <br>
+            <div class="row">
+                <div class="col">
+            <button id="addCustomer" class="btn btn-success">Submit to Database</button>
+        </div> </div>
+        </form> </div>
 
         <P></P>
         <p></p>
         <div class="container">
             <div class="table-responsive">
                 <h4>View All Customers</h4>
-
-                <table class="table table-sm" id="customers_table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Customer Id</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Email Address</th>
-                            <th scope="col">Physical Address</th>
-                            <th scope="col">Update Info</th>
-                            <th scope="col">Delete Customer</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">8</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">9</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">10</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">11</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">11</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td><button type="submit" class="btn btn-info">Show Address</button></td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <table class="table table-striped" id="customers_table"></table>
             </div>
         </div>
-
-        <script>
-            $(document).ready(function () {
-                $('#customers_table').dataTable();
-            });
-            $(document).ready(function () {
-                $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
-            });
-
-        </script>
+    
+    <script src="/public/customers.js"></script>
 </body>
