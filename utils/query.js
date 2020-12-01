@@ -238,6 +238,20 @@ const orm = {
         })
     },
 
+    // Adds a customer to the database
+    addCustomer: function (data,cb){
+        add_customer = `INSERT IGNORE INTO Customers (firstName, lastName, email, custAddressId)
+        VALUES (?,?,?,?)`
+        var {firstName, lastName, email, custAddressId} = data
+        var values = [firstName,lastName,email,custAddressId]
+        blanktoNull(values)
+        mysql.pool.query(add_customer,values,(err,results)=>{
+            if (err){cb(err,null)
+            console.log(err)};
+            cb(null,results)
+        })
+    }
+
     //add new customer
 
     //add new order

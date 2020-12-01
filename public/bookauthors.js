@@ -1,6 +1,7 @@
 
 const author_table = document.getElementById("author_table")
-    function createAuthorTable() {
+
+function createAuthorTable() {
         $('#author_table').empty()
         var headings = ["bookId", "Title", "authorId", "author"]
         var thead =  document.createElement('thead')
@@ -23,6 +24,7 @@ const author_table = document.getElementById("author_table")
             })
         })
     }
+
     function maketable(authordata) {
         tbody =  document.createElement('tbody')
         author_table.appendChild(tbody)
@@ -84,6 +86,7 @@ function getselectlists(){
     })
 
 }
+
 createAuthorTable()
 $(document).ready(function () {
     $('a[href="' + this.location.pathname + '"]').parent().addClass('active');

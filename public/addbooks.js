@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', getBookData)
 const book_table = document.getElementById('book_table')
 
 function getBookData () {
+  // Searches Google Books API for a book. Returns the results for the first book.
   document.getElementById('search').addEventListener('click', e => {
     var searchQuery = document.getElementById('booksearch').value
     var req = new XMLHttpRequest()
@@ -12,7 +13,7 @@ function getBookData () {
     )
     req.send()
     data = JSON.parse(req.response)
-    console.log(data.items[0])
+
     updateVals(data.items[0])
     e.preventDefault()
   })
@@ -54,11 +55,8 @@ $('#database').on('click', e => {
       .val()
       .split(',')
   }
-  console.log(payload)
-
   //ajax data to server
   $.post('/addbook', payload,function(data,status,xhr){
-    console.log(data)
   })
     .then(() => {
       alert('Book Added')
@@ -192,18 +190,12 @@ function tableeditor () {
       }
     },
     onAjax: function (action, serialize) {
-      console.log('onAjax(action, serialize)')
-      console.log(action)
-      console.log(serialize)
-      console.log("testing now")
       $('#book_table')
       .DataTable()
       .destroy()
       createbookTable()
     },
-    onSuccess: function (data,textStatus, jqXHR) {
-      console.log("supfresh")
-      
+    onSuccess: function (data,textStatus, jqXHR) {      
     }
     
   })
