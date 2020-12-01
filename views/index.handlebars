@@ -1,6 +1,6 @@
 
-<h2>BOOKSTORE</h2>
-<h4>Still Under Construction</h4>
+
+
 <div class="container">
     <div class="btn-group" role="group">
         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -14,16 +14,30 @@
         <a class="dropdown-item" href="/rating/4">4</a>
         <a class="dropdown-item" href="/rating/5">5</a>
         </div>
+    <div class="btn-group" role="group1">
+    <button id="AuthorDropDown" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        View by Authors</button>
+        <div class = "dropdown-menu pre-scrollable" aria-labelledby="AuthorDropDown" id="authordrop">
+        </div>
+        </div>
 </div>
-<h5>{{#if sorted}}
+
+    {{#if sorted}}
+    <h5>
     Books Rated {{sorted}} out of 5
+    </h5>
     {{/if}}
-</h5>
+
+    {{#if Author}}
+    <h5>{{Author}}</h5>
+    {{/if}}
+
+    {{#if nobooks}}
+    <h5>There are no books available for this author.</h5>
+    {{/if}}
 
 <div class="container" id="main_container">
     <div class="row">
-
-
         {{#each book_data}}
         <div class="col-12">
             <div class="card border-info mb-3">
@@ -50,8 +64,7 @@
             </div>
         </div>
         {{/each}}
-
     </div>
 </div>
 
-<script src="homepage.js"></script>
+<script src="/public/homepage.js"></script>

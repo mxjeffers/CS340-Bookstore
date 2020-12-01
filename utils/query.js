@@ -107,7 +107,6 @@ const orm = {
         var DeleteBook = `DELETE FROM Books WHERE Books.bookId = (?)`
         mysql.pool.query(DeleteBook, data.bookid, (err, results) => {
             if (err) { console.log(err) }
-            
         })
     },
 
@@ -116,11 +115,10 @@ const orm = {
         var updatebook = `UPDATE Books SET googleId=?, title=?, isbn=?, publisher=?, publishedDate=?,
                             pageCount=?, rating=?, price=?, quantityAvailable=? Where bookId=?`
         var { bookid, googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable, authors } = data;
-        console.log(rating)
+        // Verify rating is between 1 and 5 
         rating = rating_verify(rating)
         values = [googleId, title, isbn, publisher, publishedDate, pageCount, rating, price, quantityAvailable, bookid]
         blanktoNull(values)
-        //values[6] = rating_verify(values[6])
         mysql.pool.query(updatebook, values, (err, results) => {
             if (err) { console.log(err) }
         })
@@ -163,6 +161,7 @@ const orm = {
         })
     },
 
+    // Selects books by rating
     bookbyrating: function(rating, cb){
         var rating_query = `SELECT * FROM Books WHERE rating = ?`
         mysql.pool.query(rating_query,rating,(err,results)=>{
@@ -171,7 +170,49 @@ const orm = {
                 cb(null,results)
             }
         })
+    },
 
+    selectAuthor: function(authorid,cb){
+        var sel_author_query = `SELECT Books.bookId, Books.googleId, Books.title, Books.isbn, Books.publisher, Books.publishedDate,
+        Books.description, Books.pageCount, Books.rating, Books.price, Books.quantityAvailable, Authors.authorName
+            FROM Authors
+	        INNER JOIN BookAuthors
+		    ON Authors.authorId = BookAuthors.authorId
+	        INNER JOIN Books
+		    ON BookAuthors.bookId = Books.bookId
+            WHERE Authors.authorid = ?`
+        mysql.pool.query(sel_author_query,authorid,(err,results)=>{
+            if (err){cb(err,null)
+            } else {
+                cb(null,results)
+            }
+        })  
+    },
+
+    // Orders authors by name
+    orderedauthors: function(cb){
+        var orderauthor = `SELECT Authors.authorId, Authors.authorName
+                            FROM Authors
+                            Order BY Authors.authorName`
+        mysql.pool.query(orderauthor,(err,results)=>{
+            if (err){cb(err,null)
+            } else {
+                cb(null,results)
+            }
+        })
+    },
+
+    // Orders booktitles by title
+    orderedbooktitles: function(cb){
+        var ordertitles = `SELECT Books.BookId,  Books.title
+                            FROM Books
+                            ORDER BY Books.title`
+        mysql.pool.query(ordertitles,(err,results)=>{
+            if(err){cb(err,null)
+            } else {
+                cb(null,results)
+            }
+        })
     },
 
     //SQL queries for customers, orders, addresses.

@@ -1,9 +1,15 @@
 // Rating Select Change
-$("#btnGroupDrop1").change(function(){
-    console.log($(this).val())
-    var selected = this.value    
-    console.log(selected)
-        // Get Query
-        // Format output;
-    
-});
+
+function getauthorlist(){
+    $.get('/Orderedauthors',(authordata)=>{
+        $.each(authordata,(key,val)=>{
+            $('#authordrop').append('<a class="dropdown-item" href="/author/'
+            + val.authorId + '/Name/'+val.authorName+'">'
+            +val.authorName +'</a>')
+        })
+    })
+}
+
+$(document).ready(function(){
+    getauthorlist()
+})
