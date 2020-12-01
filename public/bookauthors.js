@@ -1,6 +1,3 @@
-//const { getALLBookAuthors } = require("../utils/query")
-
-//const e = require("express")
 
 const author_table = document.getElementById("author_table")
 function createAuthorTable() {
@@ -15,17 +12,14 @@ function createAuthorTable() {
         tr.appendChild(th)
         thead.appendChild(tr)
     }
-    //change tomorrow
     $.get('/BookAuthors/data', (authordata) => {
         maketable(authordata)
         $(document).ready(function () {
             $('#author_table').DataTable()
             tableeditor()
-            $('#author_table').on('draw.dt', () => {
-                tableeditor()
-            })
         })
     })
+})
 }
 function maketable(authordata) {
     tbody = document.createElement('tbody')
@@ -75,12 +69,13 @@ function tableeditor() {
 }
 
 function getselectlists() {
-    $.get('/getAllBooks', bookdata => {
+    // FIlls in the options for authors and books in dropdown box
+    $.get('/OrderedBooks', bookdata => {
         $.each(bookdata, (key, val) => {
-            $('#book_select').append('<option value="' + val.bookId + '">' + val.title + '</option>')//.selectpicker('refresh')
+            $('#book_select').append('<option value="' + val.bookId + '">' + val.title + '</option>')
         })
     })
-    $.get('/authordata', (authordata) => {
+    $.get('/Orderedauthors', (authordata) => {
         $.each(authordata, (key, val) => {
             $('#author_select').append('<option value="' + val.authorId + '">' + val.authorName + '</option>')
         })

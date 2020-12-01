@@ -3,25 +3,27 @@
     <p> This page shows the relationship between a book and its authors.</p>
 </div>
 <div class="container">
-    <div class="form-group">
-        <div class="row">
-            <div class="col">
+    <div class="row">
+        <div class="col">
+                <label for='book_select'>Books</label>
             <select class='form-control' id='book_select'>
-            </select></div>
-            <div class="col">
-            <select id="author_select" class="form-control"></select></div>
-            <div class="col">
-                <button type="submit" class="btn btn-success" id="addbookauth">Add Book Author</button>
-            </div>
+            </select>
         </div>
-        <div class="row">
-            
+        <div class="col">
+                <label for="author_select">Authors</label>
+            <select id="author_select" class="form-control"></select>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col"><br>
+                <label for="addbookauth"> </label>
+                <button type="submit" class="btn btn-success" id="addbookauth">Add Book Author</button>
+            <br></div>
         </div>
     </div>
-</div>
+<br>
 <div class="container">
     <table id="author_table" class="table table-striped"></table>
-
 </div>
 
 <script src="bookauthors.js"></script>
