@@ -148,17 +148,17 @@ const orm = {
             if (err) { console.log(err) }
         })
     },
-    deleteBookAuthor: function(data){
+    deleteBookAuthor: function (data) {
         var delBkAuthor = `DELETE FROM BookAuthors Where bookid = ? and Authorid = ?`
-        mysql.pool.query(delBkAuthor,[data.bookid,data.authorid],(err,results)=>{
-            if (err){console.log(err)}
+        mysql.pool.query(delBkAuthor, [data.bookid, data.authorid], (err, results) => {
+            if (err) { console.log(err) }
         })
     },
 
-    addbookauth: function(data){
+    addbookauth: function (data) {
         var addbookauth = 'INSERT IGNORE INTO `BookAuthors`(`bookId`, `authorId`) VALUES (?,?)'
-        mysql.pool.query(addbookauth,[data.bookId,data.authorId],(err,results)=>{
-            if (err){console.log(err)}
+        mysql.pool.query(addbookauth, [data.bookId, data.authorId], (err, results) => {
+            if (err) { console.log(err) }
         })
     },
 
@@ -220,6 +220,7 @@ const orm = {
     //READ all customers, orders, addresses
 
     getAllAddresses: function (cb) {
+
         mysql.pool.query('SELECT * FROM Addresses ORDER BY addressId', (err, data) => {
             if (err) { cb(err, null) };
             cb(null, data)
