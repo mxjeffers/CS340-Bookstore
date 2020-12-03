@@ -19,10 +19,7 @@ function getBookData () {
   })
 }
 
-function updateVals (data) {
-  //jquery all the stuff to add data.itesm[0].whatevea
-  //$("#test")
-  console.log(data.volumeInfo.title)
+function updateVals (data) { 
   $('#book_title').val(data.volumeInfo.title)
   $('#google_id').val(data.id)
   $('#ISBN').val(data.volumeInfo.industryIdentifiers[0].identifier)
