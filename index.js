@@ -195,7 +195,6 @@ app.delete('/deleteCustomers', (req, res) => {
 
 // This post handles the edit and delete button on the Books Page
 app.post('/bookedit', (req, res) => {
-    //console.log(req.body)
     if (req.body.action == 'delete') {
         query.deletebook(req.body)
         res.send("completed")
@@ -226,6 +225,15 @@ app.post('/bookauthoredit',(req,res)=>{
     }
 })
 
+// Customer edit
+app.post('/customerdit',(req,res)=>{
+    if (req.body.action == 'delete'){
+        query.deletecustomer(req.body.customerId)
+        res.send("completed")
+    } else if(req.body.action == 'edit'){
+        query.updatecustomer(req.body)
+        res.send("completed")}
+})
 // adds bookauthor to BookAuthors table
 app.post('/addbookauth',(req,res)=>{
     query.addbookauth(req.body)
@@ -244,7 +252,6 @@ app.get('/getCustomers',(req,res)=>{
 
 // Route to add a customer to the database
 app.post('/addCustomer',(req,res)=>{
-    console.log(req.body)
     query.addCustomer(req.body, (err,data)=>{
         if(err){res.send(err)
             console.log(err)
@@ -253,6 +260,17 @@ app.post('/addCustomer',(req,res)=>{
         }
     })
 })
+
+// Route to get addresses
+app.get('/getAddresses', (req,res)=>{
+    query.getAllAddresses((err,data)=>{
+        if(err){res.send(err)
+        } else {
+            res.send(data)
+        }
+    })
+})
+
 
 app.listen(app.get('port'), function () {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');

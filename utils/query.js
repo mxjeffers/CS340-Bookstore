@@ -253,6 +253,24 @@ const orm = {
             console.log(err)};
             cb(null,results)
         })
+    },
+
+    deletecustomer: function(data){
+        customerdelete = `DELETE FROM Customers WHERE customerID = ?`
+        mysql.pool.query(customerdelete,data,(err,results)=>{
+            if(err)console.log(err)
+        })
+    },
+
+    updatecustomer: function(data){
+        customerupdate = `UPDATE Customers SET firstName=?, lastName=?, email=?, custaddressId=?
+        WHERE customerId = ?`
+        var {customerId, firstName, lastName, email, addressId} = data
+        values = [firstName,lastName,email,addressId,customerId]
+        blanktoNull(values)
+        mysql.pool.query(customerupdate,values,(err,results)=>{
+            if(err)console.log(err)
+        })
     }
 
     //add new customer

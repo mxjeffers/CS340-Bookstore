@@ -26,13 +26,14 @@ function createCustomerTable(){
 }
 
 function maketable(data){
+    console.log(data)
     tbody = document.createElement('tbody')
         customers_table.appendChild(tbody)
         $.each(data, (key, val) => {
             var tr = document.createElement('tr')
             for (x in val) {
                 td = document.createElement('td')
-                if(val[x] == ''){
+                if(val[x] == '' || val[x] == null){
                     td.innerHTML = 'NULL'
                 }else{
                     td.innerHTML = (val[x])}
@@ -44,7 +45,7 @@ function maketable(data){
 
 function tableeditor(){
     $('#customers_table').Tabledit({
-        url: '/tryagain',
+        url: '/customerdit',
         columns : {
             identifier:[0,'customerId'],
             editable:[
@@ -106,7 +107,7 @@ $('#addCustomer').on('click', e =>{
 
 createCustomerTable()
 $(document).ready(function () {
-    //$('#customers_table').dataTable();
+    getAddresslist()
 });
 $(document).ready(function () {
     $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
@@ -114,9 +115,11 @@ $(document).ready(function () {
 
 function getAddresslist(){
     $.get('/getAddresses', data =>{
+        console.log(data)
         $.each(data,(key,val)=>{
-            // Finish filling out
-            $('#address_select').append('<option value="')
+            $('#address_select').append('<option value="'+val.addressId+'">Id:'+
+            val.addressId + '     '+val.street+  ' ' + val.city + ', '+ val.state +'    ' +
+             val.zipCode +'</option>')
         })
     })
 }
