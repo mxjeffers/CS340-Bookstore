@@ -9,19 +9,8 @@
 
     </div>
 
-
-    <div class="container">
-        <form action="" align="right">
-            <label for="addressSearch">Search for Address: </label>
-            <input type="text" id="addressSearch" />
-            <button type="submit" id="addressSearch" class="btn btn-secondary">Search</button>
-            <small id="searchHelp" class="form-text text-muted">Search by physical address.</small>
-        </form>
-    </div>
-
     <div class="container">
         <h4>Add a New Address</h4>
-
         <form>
             <div class="form-group">
                 <label for="inputStreet">Street</label>
@@ -42,9 +31,7 @@
                     <input type="text" class="form-control" id="inputZip">
                 </div>
             </div>
-            <button type="submit" id="addAddress" class="btn btn-success">Submit to Database</button>
-
-            <button type="submit" id="findCustomer" class="btn btn-danger">Find Existing Customer</button>
+            <button id="addAddress" class="btn btn-success">Submit to Database</button>
 
         </form>
     </div>
@@ -54,132 +41,8 @@
         <div class="container">
             <div class="table-responsive">
                 <h4>View All Addresses</h4>
-
-                <table class="table table-sm" id="addresses_table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Address Id</th>
-                            <th scope="col">Street</th>
-                            <th scope="col">City</th>
-                            <th scope="col">State</th>
-                            <th scope="col">Zipcode</th>
-
-                            <th scope="col">Update Info</th>
-                            <th scope="col">Delete Address</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>1234 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>11111</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">6</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">7</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">8</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">9</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">10</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">11</th>
-                            <td>4567 Main St</td>
-                            <td>Portland</td>
-                            <td>Oregon</td>
-                            <td>22222</td>
-                            <td><button type="submit" class="btn btn-primary">Update</button></td>
-                            <td><button type="submit" class="btn btn-danger">Delete</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <table class="table table-striped" id="address_table"></table>
             </div>
         </div>
-
-        <script>
-            $(document).ready(function () {
-                $('#addresses_table').dataTable();
-            });
-            $(document).ready(function () {
-                $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
-            });
-        </script>
+        <script src="/public/Address.js"></script>
 </body>

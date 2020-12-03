@@ -222,22 +222,24 @@ const orm = {
     getAllAddresses: function (cb) {
 
         mysql.pool.query('SELECT * FROM Addresses ORDER BY addressId', (err, data) => {
-            if (err) { cb(err, null) };
-            cb(null, data)
+            if (err) { cb(err, null) }
+            else {
+            cb(null, data)}
         })
     },
 
     getAllCustomers: function (cb) {
         mysql.pool.query('SELECT * FROM Customers ORDER BY customerId', (err, data) => {
-            if (err) { cb(err, null) };
-            cb(null, data)
+            if (err) { cb(err, null) }
+            else {cb(null, data)}
         })
     },
 
     getAllOrders: function (cb) {
         mysql.pool.query('SELECT * FROM Orders ORDER BY orderId', (err, data) => {
-            if (err) { cb(err, null) };
-            cb(null, data)
+            if (err) { cb(err, null) }
+            else{
+            cb(null, data)}
         })
     },
 
@@ -250,15 +252,15 @@ const orm = {
         blanktoNull(values)
         mysql.pool.query(add_customer,values,(err,results)=>{
             if (err){cb(err,null)
-            console.log(err)};
-            cb(null,results)
+            console.log(err)} else{
+            cb(null,results)}
         })
     },
 
     deletecustomer: function(data){
         customerdelete = `DELETE FROM Customers WHERE customerID = ?`
         mysql.pool.query(customerdelete,data,(err,results)=>{
-            if(err)console.log(err)
+            if(err){console.log(err)}
         })
     },
 
@@ -269,7 +271,36 @@ const orm = {
         values = [firstName,lastName,email,addressId,customerId]
         blanktoNull(values)
         mysql.pool.query(customerupdate,values,(err,results)=>{
-            if(err)console.log(err)
+            if(err){console.log(err)}
+        })
+    },
+
+    addAddress: function(data,cb){
+        insertAddress = `INSERT IGNORE INTO Addresses (street, city, state, zipCode) VALUES (?,?,?,?)`
+        var {street, city, state, zipCode} = data
+        var values = [street,city,state,zipCode]
+        blanktoNull(values)
+        mysql.pool.query(insertAddress,values,(err,results)=>{
+            if(err){cb(err,null)
+            console.log(err)} else{
+            cb(null,results)}
+        })
+    },
+
+    deleteAddress : function(data){
+        addressdelete = `DELETE FROM Addresses WHERE addressId = ?`
+        mysql.pool.query(addressdelete,data.addressId,(err,results)=>{
+            if(err){console.log(err)}
+        })
+    },
+
+    updateAddress : function(data){
+        addressupdate = `UPDATE Addresses SET street=?, city=?, state=?, zipCode=? WHERE addressId = ? `
+        var {addressId, street, city, state, zipCode} = data
+        var values = [street,city,state,zipCode,addressId]
+        blanktoNull(values)
+        mysql.pool.query(addressupdate,values,(err,results)=>{
+            if(err){console.log(err)}
         })
     }
 

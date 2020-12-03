@@ -66,14 +66,12 @@ app.get('/author/:authorId/Name/:authorName',(req,res)=>{
     })
 })
 
-
 app.get('/Books',(req,res)=>{
     res.render('Books',{title:"Books"})
 })
 
 app.post('/addbook', (req, res) => {
-    data = req.body
-    query.addBook(data)
+    query.addBook(req.body)
     res.send("Books added")
 })
 
@@ -157,6 +155,7 @@ app.get('/getAllCustomers', (req, res) => {
     })
 })
 
+// Get all addresses
 app.get('/getAllAddresses', (req, res) => {
     query.getAllAddresses((error, data) => {
         if (error) {
@@ -175,21 +174,6 @@ app.get('/getAllOrders', (req, res) => {
             res.send(data)
         }
     })
-})
-
-//Create
-app.post('/addCustomers', (req, res) => {
-    res.render('Customers', { title: "Manage Customers" })
-})
-
-//Edit
-app.post('/editCustomers', (req, res) => {
-    res.render('Customers', { title: "Manage Customers" })
-})
-
-//delete
-app.delete('/deleteCustomers', (req, res) => {
-    res.render('Customers', { title: "Manage Customers" })
 })
 
 
@@ -226,13 +210,23 @@ app.post('/bookauthoredit',(req,res)=>{
 })
 
 // Customer edit
-app.post('/customerdit',(req,res)=>{
+app.post('/customeredit',(req,res)=>{
     if (req.body.action == 'delete'){
         query.deletecustomer(req.body.customerId)
         res.send("completed")
     } else if(req.body.action == 'edit'){
         query.updatecustomer(req.body)
         res.send("completed")}
+})
+
+app.post('/addressedit', (req,res)=>{
+    if(req.body.action == 'delete'){
+        query.deleteAddress(req.body)
+        res.send("completed")
+    } else if (req.body.action == 'edit'){
+        query.updateAddress(req.body)
+        res.send("completed")
+    }
 })
 // adds bookauthor to BookAuthors table
 app.post('/addbookauth',(req,res)=>{
@@ -271,6 +265,15 @@ app.get('/getAddresses', (req,res)=>{
     })
 })
 
+app.post('/addAddress',(req,res)=>{
+    query.addAddress(req.body, (err,data)=>{
+        if(err){res.send(err)
+        console.log(err)
+    } else{
+        res.send("Address Added")
+    }
+    })
+})
 
 app.listen(app.get('port'), function () {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');

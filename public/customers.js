@@ -26,7 +26,6 @@ function createCustomerTable(){
 }
 
 function maketable(data){
-    console.log(data)
     tbody = document.createElement('tbody')
         customers_table.appendChild(tbody)
         $.each(data, (key, val) => {
@@ -45,7 +44,7 @@ function maketable(data){
 
 function tableeditor(){
     $('#customers_table').Tabledit({
-        url: '/customerdit',
+        url: '/customeredit',
         columns : {
             identifier:[0,'customerId'],
             editable:[
@@ -97,7 +96,7 @@ $('#addCustomer').on('click', e =>{
         email : $('#addEmail').val(),
         custAddressId : $('#address_select').val()
     }
-    console.log(payload)
+    
     $.post('/addCustomer', payload, function(data,status,xhr){
         $('#customers_table').DataTable().destroy()
         createCustomerTable()
