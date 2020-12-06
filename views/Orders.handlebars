@@ -5,66 +5,74 @@
             Search for an order, view details of an order, update, delete an order here.
         </p>
 
-    
 
-    <div class="container">
-        <h4>Add a New Order</h4>
-    </div>
-    <div class="container">
-       <div class="row">
-           <div class="col">
-               <label for="customer_select">Customers</label>
-               <select class="form-control" id="customer_select"></select>
-           </div>
-           <div class="col">
-               <label for="order_date">Order Date</label>
-               <input type="text" class="form-control" id="order_date">
-           </div>
-       </div>
+
+        <div class="container">
+            <h4>Add a New Order</h4>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <label for="customer_select">Customers</label>
+                    <select class="form-control" id="customer_select"></select>
+                </div>
+                <div class="col">
+                    <label for="order_date">Order Date</label>
+
+                    <input class="form-control" id="order_date" />
+
+                </div>
+            </div>
             <br>
-            
-            <button id="addOrder" class="btn btn-success">Submit to Database</button>
-    </div>
 
-    <div class="container">
-        <div>
-            <div class="container">
-                
+            <button id="addOrder" class="btn btn-success">Submit to Database</button>
+        </div>
+
+        <div class="container">
+            <div>
+                <div class="container">
+
                     <br>
                     <h4>View All Existing Orders</h4>
                     <table class="table table-striped" id="orders_table"></table>
-                
-            </div>
-    
-    <div class="container">
-        <h4>Add Order Details</h4>
-        <div class="row">
-            <div class="col">
-                <label for="order_select">Orders</label>
-                <select class="form-control" id="order_select"></select>
-            </div>
-            <div class="col">
-                <label for="book_select">Book</label>
-                <select class="form-control" id="book_select"></select>
-            </div>
-            <div class="col">
-                <label for="quantity_sold">Quantity Sold</label>
-                <input type="text"  id="quantity_sold" class="form-control">
-            </div>
-        </div>
-        <br>
-        <button id="addDetails" class="btn btn-success">Add Order Details to Database</button>
-    </div>
 
-    <div class="container">
-        <br>
-        <h4>View Order Details</h4>
-        <table class="table table-striped" id="details_table"></table>
-    </div>
-<br>
-<br>
-<br>
-<br>
-<script src="/public/Orders.js"></script>
+                </div>
 
+                <div class="container">
+                    <h4>Add Order Details</h4>
+                    <div class="row">
+                        <div class="col">
+                            <label for="order_select">Orders</label>
+                            <select class="form-control" id="order_select"></select>
+                        </div>
+                        <div class="col">
+                            <label for="book_select">Book</label>
+                            <select class="form-control" id="book_select"></select>
+                        </div>
+                        <div class="col">
+                            <label for="quantity_sold">Quantity Sold</label>
+                            <input type="text" id="quantity_sold" class="form-control">
+                        </div>
+                    </div>
+                    <br>
+                    <button id="addDetails" class="btn btn-success">Add Order Details to Database</button>
+                </div>
+
+                <div class="container">
+                    <br>
+                    <h4>View Order Details</h4>
+                    <table class="table table-striped" id="details_table"></table>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <script src="/public/Orders.js"></script>
+                <script>
+                    //date picker for new order form
+                    $('#order_date').datepicker({
+                        uiLibrary: 'bootstrap4',
+                        format: 'mmm dd, yyyy'
+                    });
+                </script>
 </body>
