@@ -10,52 +10,61 @@
     </div>
 
 
-    
+
 
     <div class="container">
         <h4>Add a New Customer</h4>
 
-        <form>
+        <form id="addNewCustomer">
             <div class="row">
                 <div class="col">
-            <div class="form-group">
-                <label for="addEmail">Email address</label>
-                <input type="email" class="form-control" id="addEmail" aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-muted">Please input Customer's email here.</small>
-            </div>
+                    <div class="form-group">
+                        <label for="addEmail">Email address</label>
+                        <input type="email" class="form-control" id="addEmail" placeholder="test@email.com"
+                            aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">Please input Customer's email here.</small>
+                        <div class="invalid-feedback">
+                            Please provide a valid email.
+                        </div>
+                    </div>
                 </div>
                 <div class="col">
-            <div class="form-group">
-                <label for="addFirstName">First Name</label>
-                <input type="text" class="form-control" id="addFirstName" placeholder="First Name">
-            </div></div>
-            <div class="col">
-            <div class="form-group">
-                <label for="addLastName">Last Name</label>
-                <input type="text" class="form-control" id="addLastName" placeholder="Last Name">
-            </div></div> </div>
+                    <div class="form-group">
+                        <label for="addFirstName">First Name</label>
+                        <input type="text" class="form-control" id="addFirstName" placeholder="First Name">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="addLastName">Last Name</label>
+                        <input type="text" class="form-control" id="addLastName" placeholder="Last Name">
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <select class="form-control" id="address_select">
-                         <option value="">No Address</option>
+                        <option value="">No Address</option>
                     </select>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col">
-            <button id="addCustomer" class="btn btn-success">Submit to Database</button>
-        </div> </div>
-        </form> </div>
-
-        <P></P>
-        <p></p>
-        <div class="container">
-            <div class="table-responsive">
-                <h4>View All Customers</h4>
-                <table class="table table-striped" id="customers_table"></table>
+                    <button id="addCustomer" class="btn btn-success">Submit to Database</button>
+                </div>
             </div>
+        </form>
+    </div>
+
+    <P></P>
+    <p></p>
+    <div class="container">
+        <div class="table-responsive">
+            <h4>View All Customers</h4>
+            <table class="table table-striped" id="customers_table"></table>
         </div>
-    
+    </div>
+
     <script src="/public/customers.js"></script>
 </body>
