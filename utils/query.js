@@ -9,15 +9,15 @@ function blanktoNull(array) {
     }
 }
 
-function rating_verify(data){
+function rating_verify(data) {
     //This function verifies the rating number is between 1 and 5
-    if (data == undefined){
+    if (data == undefined) {
         return
-    } else if (data < 1){
+    } else if (data < 1) {
         data = 1
-    } else if (data >= 5){
+    } else if (data >= 5) {
         data = 5
-    } else{
+    } else {
         data = Math.round(data)
     }
     return data
@@ -52,14 +52,14 @@ const orm = {
         var bookAuthors = 'INSERT IGNORE INTO `BookAuthors`(`bookId`, `authorId`) VALUES ((SELECT bookID FROM Books WHERE googleID = ? and price = ?),(SELECT authorId FROM Authors WHERE authorName = ?));'
         rating = rating_verify(rating)
         var values = [googleId, title, isbn, publisher, publishedDate, description, pageCount, rating, price, quantityAvailable]
-        
+
         // Set values to Null if they are blank
         blanktoNull(values)
         rating_verify(values[7])
         // Add Book to database
         mysql.pool.query(newbook, values, (err, results) => {
             if (err) console.log(err)
-            
+
         })
         // Add each author to database
         authors.forEach(curr_author => {
@@ -164,18 +164,21 @@ const orm = {
     },
 
     // Selects books by rating
-    bookbyrating: function(rating, cb){
+    bookbyrating: function (rating, cb) {
         var rating_query = `SELECT * FROM Books WHERE rating = ?`
-        mysql.pool.query(rating_query,rating,(err,results)=>{
-            if (err){cb(err,null)
+        mysql.pool.query(rating_query, rating, (err, results) => {
+            if (err) {
+                cb(err, null)
             } else {
-                cb(null,results)
+                cb(null, results)
             }
         })
     },
 
+
     // Select Authors and all their books 
     selectAuthor: function(authorid,cb){
+
         var sel_author_query = `SELECT Books.bookId, Books.googleId, Books.title, Books.isbn, Books.publisher, Books.publishedDate,
         Books.description, Books.pageCount, Books.rating, Books.price, Books.quantityAvailable, Authors.authorName
             FROM Authors
@@ -184,119 +187,142 @@ const orm = {
 	        INNER JOIN Books
 		    ON BookAuthors.bookId = Books.bookId
             WHERE Authors.authorid = ?`
-        mysql.pool.query(sel_author_query,authorid,(err,results)=>{
-            if (err){cb(err,null)
+        mysql.pool.query(sel_author_query, authorid, (err, results) => {
+            if (err) {
+                cb(err, null)
             } else {
-                cb(null,results)
+                cb(null, results)
             }
-        })  
+        })
     },
 
     // Orders authors by name
-    orderedauthors: function(cb){
+    orderedauthors: function (cb) {
         var orderauthor = `SELECT Authors.authorId, Authors.authorName
                             FROM Authors
                             Order BY Authors.authorName`
-        mysql.pool.query(orderauthor,(err,results)=>{
-            if (err){cb(err,null)
+        mysql.pool.query(orderauthor, (err, results) => {
+            if (err) {
+                cb(err, null)
             } else {
-                cb(null,results)
+                cb(null, results)
             }
         })
     },
 
     // Orders booktitles by title
-    orderedbooktitles: function(cb){
+    orderedbooktitles: function (cb) {
         var ordertitles = `SELECT Books.BookId,  Books.title
                             FROM Books
                             ORDER BY Books.title`
-        mysql.pool.query(ordertitles,(err,results)=>{
-            if(err){cb(err,null)
+        mysql.pool.query(ordertitles, (err, results) => {
+            if (err) {
+                cb(err, null)
             } else {
-                cb(null,results)
+                cb(null, results)
             }
         })
     },
 
+
     //SQL queries for customers, orders, addresses.
     //READ all customers, orders, addresses
     // Get all the addresses
+
     getAllAddresses: function (cb) {
         mysql.pool.query('SELECT * FROM Addresses ORDER BY addressId', (err, data) => {
             if (err) { cb(err, null) }
             else {
-            cb(null, data)}
+                cb(null, data)
+            }
         })
     },
 
     getAllCustomers: function (cb) {
         mysql.pool.query('SELECT * FROM Customers ORDER BY customerId', (err, data) => {
             if (err) { cb(err, null) }
-            else {cb(null, data)}
+            else { cb(null, data) }
         })
     },
 
     // Adds a customer to the database
     addCustomer: function (data,cb){
+
         add_customer = `INSERT IGNORE INTO Customers (firstName, lastName, email, custAddressId)
         VALUES (?,?,?,?)`
-        var {firstName, lastName, email, custAddressId} = data
-        var values = [firstName,lastName,email,custAddressId]
+        var { firstName, lastName, email, custAddressId } = data
+        var values = [firstName, lastName, email, custAddressId]
         blanktoNull(values)
-        mysql.pool.query(add_customer,values,(err,results)=>{
-            if (err){cb(err,null)
-            console.log(err)} else{
-            cb(null,results)}
+        mysql.pool.query(add_customer, values, (err, results) => {
+            if (err) {
+                cb(err, null)
+                console.log(err)
+            } else {
+                cb(null, results)
+            }
         })
     },
+
     // Delete a customer
     deletecustomer: function(data){
+
         customerdelete = `DELETE FROM Customers WHERE customerID = ?`
-        mysql.pool.query(customerdelete,data,(err,results)=>{
-            if(err){console.log(err)}
+        mysql.pool.query(customerdelete, data, (err, results) => {
+            if (err) { console.log(err) }
         })
     },
+
     // Update a customers info
     updatecustomer: function(data){
+
         customerupdate = `UPDATE Customers SET firstName=?, lastName=?, email=?, custaddressId=?
         WHERE customerId = ?`
-        var {customerId, firstName, lastName, email, addressId} = data
-        values = [firstName,lastName,email,addressId,customerId]
+        var { customerId, firstName, lastName, email, addressId } = data
+        values = [firstName, lastName, email, addressId, customerId]
         blanktoNull(values)
-        mysql.pool.query(customerupdate,values,(err,results)=>{
-            if(err){console.log(err)}
+        mysql.pool.query(customerupdate, values, (err, results) => {
+            if (err) { console.log(err) }
         })
     },
+
     // Add an address to the database
     addAddress: function(data,cb){
+
         insertAddress = `INSERT IGNORE INTO Addresses (street, city, state, zipCode) VALUES (?,?,?,?)`
-        var {street, city, state, zipCode} = data
-        var values = [street,city,state,zipCode]
+        var { street, city, state, zipCode } = data
+        var values = [street, city, state, zipCode]
         blanktoNull(values)
-        mysql.pool.query(insertAddress,values,(err,results)=>{
-            if(err){cb(err,null)
-            console.log(err)} else{
-            cb(null,results)}
+        mysql.pool.query(insertAddress, values, (err, results) => {
+            if (err) {
+                cb(err, null)
+                console.log(err)
+            } else {
+                cb(null, results)
+            }
         })
     },
 
     // Delete an address from the database
     deleteAddress : function(data){
+
         addressdelete = `DELETE FROM Addresses WHERE addressId = ?`
-        mysql.pool.query(addressdelete,data.addressId,(err,results)=>{
-            if(err){console.log(err)}
+        mysql.pool.query(addressdelete, data.addressId, (err, results) => {
+            if (err) { console.log(err) }
         })
     },
 
+
     // Update an address 
     updateAddress : function(data){
+
         addressupdate = `UPDATE Addresses SET street=?, city=?, state=?, zipCode=? WHERE addressId = ? `
-        var {addressId, street, city, state, zipCode} = data
-        var values = [street,city,state,zipCode,addressId]
+        var { addressId, street, city, state, zipCode } = data
+        var values = [street, city, state, zipCode, addressId]
         blanktoNull(values)
-        mysql.pool.query(addressupdate,values,(err,results)=>{
-            if(err){console.log(err)}
+        mysql.pool.query(addressupdate, values, (err, results) => {
+            if (err) { console.log(err) }
         })
+
     },
 
     getAllOrders : function(cb){
@@ -350,6 +376,7 @@ const orm = {
             else {cb(null, results)}
         })
     },
+
 
     addOrderDetail : function(data,cb){
         insertOrderDetail = `INSERT IGNORE INTO OrderDetails(orderId,bookid,quantitySold) VALUES (?,?,?)`
