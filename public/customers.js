@@ -1,5 +1,6 @@
 const customers_table = document.getElementById("customers_table")
 
+// Creates the customer table
 function createCustomerTable(){
     $('#customers_table').empty()
     var headings = ["customerId", "First Name", "Last Name", "Email", "Address Id"]
@@ -25,6 +26,7 @@ function createCustomerTable(){
     })
 }
 
+// Takes data from the database and places it int he table
 function maketable(data){
     tbody = document.createElement('tbody')
         customers_table.appendChild(tbody)
@@ -42,6 +44,7 @@ function maketable(data){
         })
     }
 
+//  function for jquery-tabledit plugin  
 function tableeditor(){
     $('#customers_table').Tabledit({
         url: '/customeredit',
@@ -88,6 +91,7 @@ function tableeditor(){
     })
 }
 
+// This button adds the custome to the database
 $('#addCustomer').on('click', e =>{
     e.preventDefault()
     var payload = {
@@ -104,17 +108,18 @@ $('#addCustomer').on('click', e =>{
     
 })
 
+
 createCustomerTable()
+
+
 $(document).ready(function () {
     getAddresslist()
-});
-$(document).ready(function () {
     $('a[href="' + this.location.pathname + '"]').parent().addClass('active');
 });
 
+// Places data in the address select section
 function getAddresslist(){
     $.get('/getAddresses', data =>{
-        console.log(data)
         $.each(data,(key,val)=>{
             $('#address_select').append('<option value="'+val.addressId+'">Id:'+
             val.addressId + '     '+val.street+  ' ' + val.city + ', '+ val.state +'    ' +

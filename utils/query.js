@@ -90,7 +90,7 @@ const orm = {
             })
     },
 
-    //get join table
+    // Data for BookAuthors table
     getALLBookAuthors: function (cb) {
         var BookAuthor = `SELECT Books.bookId, Books.title, Authors.authorID, Authors.authorName
         FROM Books
@@ -107,7 +107,6 @@ const orm = {
         var DeleteBook = `DELETE FROM Books WHERE Books.bookId = (?)`
         mysql.pool.query(DeleteBook, data.bookid, (err, results) => {
             if (err) { console.log(err) }
-
         })
     },
 
@@ -148,6 +147,7 @@ const orm = {
             if (err) { console.log(err) }
         })
     },
+    // Delete a bookAuthor
     deleteBookAuthor: function (data) {
         var delBkAuthor = `DELETE FROM BookAuthors Where bookid = ? and Authorid = ?`
         mysql.pool.query(delBkAuthor, [data.bookid, data.authorid], (err, results) => {
@@ -155,6 +155,7 @@ const orm = {
         })
     },
 
+    // Add bookauthor
     addbookauth: function (data) {
         var addbookauth = 'INSERT IGNORE INTO `BookAuthors`(`bookId`, `authorId`) VALUES (?,?)'
         mysql.pool.query(addbookauth, [data.bookId, data.authorId], (err, results) => {
@@ -173,6 +174,7 @@ const orm = {
         })
     },
 
+    // Select Authors and all their books 
     selectAuthor: function(authorid,cb){
         var sel_author_query = `SELECT Books.bookId, Books.googleId, Books.title, Books.isbn, Books.publisher, Books.publishedDate,
         Books.description, Books.pageCount, Books.rating, Books.price, Books.quantityAvailable, Authors.authorName
@@ -218,9 +220,8 @@ const orm = {
 
     //SQL queries for customers, orders, addresses.
     //READ all customers, orders, addresses
-
+    // Get all the addresses
     getAllAddresses: function (cb) {
-
         mysql.pool.query('SELECT * FROM Addresses ORDER BY addressId', (err, data) => {
             if (err) { cb(err, null) }
             else {
@@ -232,14 +233,6 @@ const orm = {
         mysql.pool.query('SELECT * FROM Customers ORDER BY customerId', (err, data) => {
             if (err) { cb(err, null) }
             else {cb(null, data)}
-        })
-    },
-
-    getAllOrders: function (cb) {
-        mysql.pool.query('SELECT * FROM Orders ORDER BY orderId', (err, data) => {
-            if (err) { cb(err, null) }
-            else{
-            cb(null, data)}
         })
     },
 
@@ -256,14 +249,14 @@ const orm = {
             cb(null,results)}
         })
     },
-
+    // Delete a customer
     deletecustomer: function(data){
         customerdelete = `DELETE FROM Customers WHERE customerID = ?`
         mysql.pool.query(customerdelete,data,(err,results)=>{
             if(err){console.log(err)}
         })
     },
-
+    // Update a customers info
     updatecustomer: function(data){
         customerupdate = `UPDATE Customers SET firstName=?, lastName=?, email=?, custaddressId=?
         WHERE customerId = ?`
@@ -274,7 +267,7 @@ const orm = {
             if(err){console.log(err)}
         })
     },
-
+    // Add an address to the database
     addAddress: function(data,cb){
         insertAddress = `INSERT IGNORE INTO Addresses (street, city, state, zipCode) VALUES (?,?,?,?)`
         var {street, city, state, zipCode} = data
@@ -287,6 +280,7 @@ const orm = {
         })
     },
 
+    // Delete an address from the database
     deleteAddress : function(data){
         addressdelete = `DELETE FROM Addresses WHERE addressId = ?`
         mysql.pool.query(addressdelete,data.addressId,(err,results)=>{
@@ -294,6 +288,7 @@ const orm = {
         })
     },
 
+    // Update an address 
     updateAddress : function(data){
         addressupdate = `UPDATE Addresses SET street=?, city=?, state=?, zipCode=? WHERE addressId = ? `
         var {addressId, street, city, state, zipCode} = data
@@ -302,27 +297,79 @@ const orm = {
         mysql.pool.query(addressupdate,values,(err,results)=>{
             if(err){console.log(err)}
         })
+    },
+
+    getAllOrders : function(cb){
+        order_query = `SELECT Orders.orderId, Orders.customerId, CONCAT(Customers.firstName, " ", Customers.lastName) AS names, Orders.orderDate
+        FROM Orders
+        INNER JOIN Customers
+        ON Orders.customerId = Customers.customerId
+        `
+        mysql.pool.query(order_query,(err,results)=>{
+            if (err) { cb(err, null) }
+            else {cb(null, results)}
+        })
+        
+    },
+    addOrder : function(data,cb){
+        addOrderquery = `INSERT IGNORE INTO Orders (customerId,orderDate) VALUES(?,?)`
+        var {customerId, orderDate} = data
+        var values = [customerId,orderDate]
+        blanktoNull(values)
+        mysql.pool.query(addOrderquery,values,(err,results)=>{
+            if(err){cb(err,null)
+                console.log(err)} else{
+                cb(null,results)}
+        })
+    },
+
+    deleteOrder : function(data){
+        order_delete_query = `DELETE FROM Orders	WHERE orderId = ?`
+        mysql.pool.query(order_delete_query,data.orderId,(err,results)=>{
+            if(err){console.log(err)}
+        })
+    },
+
+    updateOrder : function(data){
+        order_edit_query = `UPDATE Orders SET orderDate=? WHERE orderId = ?`
+        var { orderId, orderDate} = data
+        values = [orderDate,orderId]
+        blanktoNull(values)
+        mysql.pool.query(order_edit_query,values,(err,results)=>{
+            if(err){console.log(err)}
+        })
+    },
+
+    getAllOrderDetails : function(cb){
+        orderDetailQuery = `SELECT OrderDetails.orderId, OrderDetails.bookId, Books.title, OrderDetails.quantitySold
+        FROM OrderDetails
+        INNER JOIN Books
+        ON OrderDetails.bookId = Books.bookId`
+        mysql.pool.query(orderDetailQuery,(err,results)=>{
+            if (err) { cb(err, null) }
+            else {cb(null, results)}
+        })
+    },
+
+    addOrderDetail : function(data,cb){
+        insertOrderDetail = `INSERT IGNORE INTO OrderDetails(orderId,bookid,quantitySold) VALUES (?,?,?)`
+        var {orderId, bookId, quantitySold} = data
+        values = [orderId, bookId, quantitySold]
+        blanktoNull(values)
+        mysql.pool.query(insertOrderDetail,values,(err,results)=>{
+            if(err){cb(err,null)
+                console.log(err)} else{
+                cb(null,results)}
+        })
+    },
+    deleteOrderDetail : function(data){
+        orderDetailDelete = `DELETE FROM OrderDetails	
+                            WHERE orderId = ? AND bookId = ?`
+        console.log(data)
+        mysql.pool.query(orderDetailDelete,[data.orderId,data.bookId],(err,results)=>{
+            if (err) { console.log(err) }
+        })
     }
-
-    //add new customer
-
-    //add new order
-
-    //add new address
-
-    //update current customer
-
-    //update current order
-
-    //update current address
-
-    //delete current customer
-
-    //delete current order
-
-    //delete current address
-
 }
-
 
 module.exports = orm;

@@ -3,7 +3,7 @@
  * Copyright (c) 2015 Celso Marques
  * Licensed under MIT (https://github.com/markcell/jQuery-Tabledit/blob/master/LICENSE)
  */
-
+//This file is edited to not have duplicate buttons on table page changes.
 /**
  * @description Inline editor for HTML tables compatible with Bootstrap
  * @version 1.2.3

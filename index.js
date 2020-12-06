@@ -275,6 +275,61 @@ app.post('/addAddress',(req,res)=>{
     })
 })
 
+app.get('/getOrders',(req,res)=>{
+    query.getAllOrders((err,data)=>{
+        if(err){res.send(err)
+        } else {
+            res.send(data)
+        }
+    })
+})
+
+app.post('/addOrder',(req,res)=>{
+    query.addOrder(req.body, (err,data)=>{
+        if(err){res.send(err)
+            console.log(err)
+        } else{
+            res.send("Order Added")
+        }
+    })
+})
+
+app.post('/editOrders',(req,res)=>{
+    if(req.body.action == 'delete'){
+        query.deleteOrder(req.body)
+        res.send("completed")
+    } else if (req.body.action == 'edit'){
+        query.updateOrder(req.body)
+        res.send("completed")
+    }
+})
+
+app.get('/getOrderDetails',(req,res)=>{
+    query.getAllOrderDetails((err,data)=>{
+        if(err){res.send(err)
+        } else {
+            res.send(data)
+        }
+    })
+})
+
+app.post('/addOrderDetails',(req,res)=>{
+    query.addOrderDetail(req.body,(err,data)=>{
+        if(err){res.send(err)
+            console.log(err)
+        } else{
+            res.send("Order Details Added")
+        }
+    })
+})
+
+app.post('/editDetails',(req,res)=>{
+    
+    if(req.body.action == 'remove'){
+        query.deleteOrderDetail(req.body)
+        res.send("completed")
+    }
+})
 app.listen(app.get('port'), function () {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });

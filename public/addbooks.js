@@ -3,6 +3,8 @@ const book_table = document.getElementById('book_table')
 
 function getBookData () {
   // Searches Google Books API for a book. Returns the results for the first book.
+  // Chrome shows a degraded version of a get request. Should switch to Jquery get
+  // when time is avaiable.
   document.getElementById('search').addEventListener('click', e => {
     var searchQuery = document.getElementById('booksearch').value
     var req = new XMLHttpRequest()
@@ -19,6 +21,7 @@ function getBookData () {
   })
 }
 
+// Updates the values in the input fields with results from Google Books API
 function updateVals (data) { 
   $('#book_title').val(data.volumeInfo.title)
   $('#google_id').val(data.id)
@@ -28,13 +31,9 @@ function updateVals (data) {
   $('#description').val(data.volumeInfo.description)
   $('#page_count').val(data.volumeInfo.pageCount)
   $('#authors').val(data.volumeInfo.authors)
-  console.log(
-    $('#authors')
-      .val()
-      .split(',')
-  )
 }
 
+// Send the data from the input fields to the database.
 $('#database').on('click', e => {
   e.preventDefault()
   var payload = {
@@ -68,6 +67,7 @@ $('#database').on('click', e => {
     })
 })
 
+// Create the booktable 
 function createbookTable () {
   $('#book_table').empty()
   var headings = [
@@ -101,7 +101,6 @@ function createbookTable () {
         "scrollX": true
       })
       //jquery-tabledit adds delete and edit buttons to table.
-      //Still need to give them functionality.
       tableeditor()
 
       $('#book_table').on('draw.dt', () => {
@@ -111,10 +110,11 @@ function createbookTable () {
   })
 }
 
+
+// Takes data received from the server and places it in the table.
 function maketable (bookdata) {
   tbody = document.createElement('tbody')
   book_table.appendChild(tbody)
-  console.log(bookdata)
   $.each(bookdata, (key, val) => {
     var tr = document.createElement('tr')
     for (x in val) {
@@ -139,6 +139,7 @@ function maketable (bookdata) {
 }
 createbookTable()
 
+// Creates a function to use the jquery-tabledit plugin
 function tableeditor () {
   $('#book_table').Tabledit({
     url: '/bookedit',
