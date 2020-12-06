@@ -1,5 +1,5 @@
-// Rating Select Change
 
+// Gets the data for the author select option
 function getauthorlist(){
     $.get('/Orderedauthors',(authordata)=>{
         $.each(authordata,(key,val)=>{
