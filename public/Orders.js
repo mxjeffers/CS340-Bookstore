@@ -78,36 +78,36 @@ function order_tableditor() {
         },
         editButton: true,
 
-            deleteButton: true,
-    buttons: {
-      edit: {
-        class: 'btn btn-sm btn-primary',
-        html: 'EDIT',
-        action: 'edit'
-      },
-      delete: {
-        class: 'btn btn-sm btn-danger',
-        html: 'DELETE',
-        action: 'delete'
-      },
-      save: {
-        class: 'btn btn-sm btn-success',
-        html: 'Save'
-      },
-      restore: {
-        class: 'btn btn-sm btn-warning',
-        html: 'Restore',
-        action: 'restore'
-      },
-      confirm: {
-        class: 'btn btn-sm btn-warning',
-        html: 'Confirm'
-      }
-    },
-    onSuccess: function(data, textStatus, jqXHR) {
-        $('#orders_table').DataTable().destroy()
-        createOrderTable()
-      },
+        deleteButton: true,
+        buttons: {
+            edit: {
+                class: 'btn btn-sm btn-primary',
+                html: 'EDIT',
+                action: 'edit'
+            },
+            delete: {
+                class: 'btn btn-sm btn-danger',
+                html: 'DELETE',
+                action: 'delete'
+            },
+            save: {
+                class: 'btn btn-sm btn-success',
+                html: 'Save'
+            },
+            restore: {
+                class: 'btn btn-sm btn-warning',
+                html: 'Restore',
+                action: 'restore'
+            },
+            confirm: {
+                class: 'btn btn-sm btn-warning',
+                html: 'Confirm'
+            }
+        },
+        onSuccess: function (data, textStatus, jqXHR) {
+            $('#orders_table').DataTable().destroy()
+            createOrderTable()
+        },
 
     })
 
@@ -123,25 +123,12 @@ function details_tableditor() {
         editButton: true,
         autoFocus: false,
 
-    buttons: {
-      edit: {
-        class: 'btn btn-sm btn-danger',
-        html: 'DELETE',
-        action: 'remove'
-      },
-      
-      save: {
-        class: 'btn btn-sm btn-success',
-        html: 'Are you sure?'
-      },
-      
-    },
-    inputClass:'readonly form-control-plaintext',
-    onSuccess: function(data, textStatus, jqXHR) {
-        $('#details_table').DataTable().destroy()
-        createDetailsTable()
-      }
-
+        buttons: {
+            edit: {
+                class: 'btn btn-sm btn-danger',
+                html: 'DELETE',
+                action: 'remove'
+            },
 
             save: {
                 class: 'btn btn-sm btn-success',
@@ -150,10 +137,23 @@ function details_tableditor() {
 
         },
         inputClass: 'readonly form-control-plaintext',
-        onAjax: function (action, serialize) {
+        onSuccess: function (data, textStatus, jqXHR) {
             $('#details_table').DataTable().destroy()
             createDetailsTable()
-        }
+        },
+
+
+        //     save: {
+        //         class: 'btn btn-sm btn-success',
+        //         html: 'Are you sure?'
+        //     },
+
+        // },
+        //     inputClass: 'readonly form-control-plaintext',
+        //     onAjax: function (action, serialize) {
+        //         $('#details_table').DataTable().destroy()
+        //         createDetailsTable()
+        //     }
     })
 }
 
