@@ -178,9 +178,7 @@ function tableeditor() {
                 html: 'Confirm'
             }
         },
-        // onAjax: function (action, serialize) {
 
-        // },
         onSuccess: function (data, textStatus, jqXHR) {
             $('#book_table')
                 .DataTable()
