@@ -141,19 +141,6 @@ function details_tableditor() {
         $('#details_table').DataTable().destroy()
         createDetailsTable()
       }
-
-
-            save: {
-                class: 'btn btn-sm btn-success',
-                html: 'Are you sure?'
-            },
-
-        },
-        inputClass: 'readonly form-control-plaintext',
-        onAjax: function (action, serialize) {
-            $('#details_table').DataTable().destroy()
-            createDetailsTable()
-        }
     })
 }
 
