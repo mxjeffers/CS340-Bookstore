@@ -102,7 +102,7 @@ function order_tableditor(){
         html: 'Confirm'
       }
     },
-    onAjax: function (action, serialize) {
+    onSuccess: function(data, textStatus, jqXHR) {
         $('#orders_table').DataTable().destroy()
         createOrderTable()
       },
@@ -133,7 +133,7 @@ function details_tableditor(){
       
     },
     inputClass:'readonly form-control-plaintext',
-    onAjax: function (action, serialize) {
+    onSuccess: function(data, textStatus, jqXHR) {
         $('#details_table').DataTable().destroy()
         createDetailsTable()
       }

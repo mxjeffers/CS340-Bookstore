@@ -83,7 +83,7 @@ function tableeditor(){
         html: 'Confirm'
       }
     },
-    onAjax: function (action, serialize) {
+    onSuccess: function(data, textStatus, jqXHR) {
         $('#customers_table').DataTable().destroy()
         createCustomerTable()
       },

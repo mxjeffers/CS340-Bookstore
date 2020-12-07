@@ -70,8 +70,7 @@ function tableeditor(){
             autoFocus: false,
             editButton: true,
             inputClass: 'readonly form-control-plaintext',
-            onAjax: function (action, serialize) {
-                //After confirm button is hit this recreate table
+            onSuccess: function(data, textStatus, jqXHR) {
                 $('#author_table').DataTable().destroy()
                 createAuthorTable()
             }

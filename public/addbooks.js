@@ -53,18 +53,9 @@ $('#database').on('click', e => {
   }
   //ajax data to server
   $.post('/addbook', payload,function(data,status,xhr){
-  })
-    .then(() => {
-      alert('Book Added')
-      //To correctly render table again, use datatable destroy then recreate
-      $('#book_table')
-        .DataTable()
-        .destroy()
-      createbookTable()
-    })
-    .catch(() => {
-      alert('Book not added.')
-    })
+              $('#book_table').DataTable().destroy()
+              createbookTable()
+              })
 })
 
 // Create the booktable 
@@ -188,12 +179,13 @@ function tableeditor () {
       }
     },
     onAjax: function (action, serialize) {
+      
+    },
+    onSuccess: function (data,textStatus, jqXHR) {  
       $('#book_table')
       .DataTable()
       .destroy()
-      createbookTable()
-    },
-    onSuccess: function (data,textStatus, jqXHR) {      
+      createbookTable()    
     }
     
   })

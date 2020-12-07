@@ -76,15 +76,13 @@ function tableeditor() {
         html: 'Confirm'
       }
     },
-    onAjax: function (action, serialize) {
-      console.log('onAjax(action, serialize)')
-      console.log(action)
-      console.log(serialize)
+    onSuccess: function (action, serialize) {
       $('#author_table')
         .DataTable()
         .destroy()
       createAuthorTable()
-    }
+    },
+    
     })
 }
 
@@ -94,10 +92,11 @@ function tableeditor() {
             action : "insert",
             authorName : $("#addauthor").val()
         }
-        console.log(payload)
-        $.post('/authoredit',payload)
-        .then(()=>{$("#author_table").DataTable().destroy()
-        createAuthorTable()})
+        $.post('/authoredit',payload,(data,status,xhr)=>{
+            $("#author_table").DataTable().destroy()
+            createAuthorTable()
+        })
+        
     })
 
     $(document).ready(function () {
