@@ -72,7 +72,7 @@ app.get('/Books',(req,res)=>{
 
 app.post('/addbook', (req, res) => {
     query.addBook(req.body)
-    res.send("Books added")
+    res.send({})
 })
 
 app.get('/getAllBooks', (req, res) => {
@@ -181,23 +181,23 @@ app.get('/getAllOrders', (req, res) => {
 app.post('/bookedit', (req, res) => {
     if (req.body.action == 'delete') {
         query.deletebook(req.body)
-        res.send("completed")
+        res.send({})
     } else if (req.body.action = 'edit') {
         query.updatebook(req.body)
-        res.send('completed')
+        res.send({})
     }
 })
 
 app.post('/authoredit',(req,res)=>{
     if (req.body.action == 'delete'){
         query.deleteauthor(req.body)
-        res.send("completed")
+        res.send({})
     } else if (req.body.action == 'edit') {
         query.updateauthor(req.body)
-        res.send('completed')
+        res.send({})
     } else if (req.body.action == 'insert') {
         query.insertauthor(req.body)
-        res.send('completed')
+        res.send({})
     }
 })
 
@@ -205,7 +205,7 @@ app.post('/authoredit',(req,res)=>{
 app.post('/bookauthoredit',(req,res)=>{
     if (req.body.action == 'remove'){
         query.deleteBookAuthor(req.body)
-        res.send("completed")
+        res.send({})
     }
 })
 
@@ -213,25 +213,25 @@ app.post('/bookauthoredit',(req,res)=>{
 app.post('/customeredit',(req,res)=>{
     if (req.body.action == 'delete'){
         query.deletecustomer(req.body.customerId)
-        res.send("completed")
+        res.send({})
     } else if(req.body.action == 'edit'){
         query.updatecustomer(req.body)
-        res.send("completed")}
+        res.send({})}
 })
 
 app.post('/addressedit', (req,res)=>{
     if(req.body.action == 'delete'){
         query.deleteAddress(req.body)
-        res.send("completed")
+        res.send({})
     } else if (req.body.action == 'edit'){
         query.updateAddress(req.body)
-        res.send("completed")
+        res.send({})
     }
 })
 // adds bookauthor to BookAuthors table
 app.post('/addbookauth',(req,res)=>{
     query.addbookauth(req.body)
-    res.send('completed')
+    res.send({})
 })
 
 // Sends all customer data from database
@@ -297,10 +297,10 @@ app.post('/addOrder',(req,res)=>{
 app.post('/editOrders',(req,res)=>{
     if(req.body.action == 'delete'){
         query.deleteOrder(req.body)
-        res.send("completed")
+        res.send({})
     } else if (req.body.action == 'edit'){
         query.updateOrder(req.body)
-        res.send("completed")
+        res.send({})
     }
 })
 
@@ -324,12 +324,12 @@ app.post('/addOrderDetails',(req,res)=>{
 })
 
 app.post('/editDetails',(req,res)=>{
-    
     if(req.body.action == 'remove'){
         query.deleteOrderDetail(req.body)
-        res.send("completed")
+        res.send({})
     }
 })
+
 app.listen(app.get('port'), function () {
     console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });

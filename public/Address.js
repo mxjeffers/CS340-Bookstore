@@ -82,7 +82,7 @@ function tableeditor(){
         html: 'Confirm'
       }
     },
-    onAjax: function (action, serialize) {
+    onSuccess: function(data, textStatus, jqXHR) {
         $('#address_table').DataTable().destroy()
         createAddressTable()
       }
