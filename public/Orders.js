@@ -14,6 +14,7 @@ function createOrderTable(){
         tr.appendChild(th)
         thead.appendChild(tr)
     }
+    
     $.get('/getOrders',(orderData)=>{
         order_table.appendChild(maketable(orderData))
         $(document).ready(function(){
